@@ -112,7 +112,7 @@ function Basic() {
   const renderItem = ({ item, index }) => (
     <Box>
       <Pressable
-        onPress={() => console.log("You touched me")}
+        onPress={() => console.log("You Item n°: ",index)}
         _dark={{
           bg: "coolGray.800",
         }}
@@ -210,6 +210,7 @@ function Basic() {
 
   return (
     <Box bg="white" safeArea flex="1">
+      <ScrollView horizontal={true} style={{ width: "100%" }}>
       <SwipeListView
         data={listData}
         renderItem={renderItem}
@@ -220,6 +221,7 @@ function Basic() {
         previewOpenDelay={3000}
         onRowDidOpen={onRowDidOpen}
       />
+      </ScrollView>
     </Box>
   );
 }
