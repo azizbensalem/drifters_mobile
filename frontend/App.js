@@ -5,6 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import "react-native-gesture-handler";
 import LieuCoach from "./pages/LieuCoach/lieuCoach";
 import AbonnementCoach from "./pages/AbonnementCoach/AbonnementCoach";
+import SeanceCoach from "./pages/SeanceCoach/SeanceCoach";
 
 function HomeScreen({ navigation }) {
   return (
@@ -41,6 +42,10 @@ export default function App() {
         <Drawer.Screen name="Home" component={HomeScreen} />
         <Drawer.Screen name="Mes lieux" component={LieuCoach} />
         <Drawer.Screen name="Mon abonnement" component={AbonnementCoach} />
+        <Drawer.Screen
+          name="Mes programmes de séances"
+          component={SeanceCoach}
+        />
         <Drawer.Screen name="Notifications" component={NotificationsScreen} />
       </Drawer.Navigator>
     </NavigationContainer>
