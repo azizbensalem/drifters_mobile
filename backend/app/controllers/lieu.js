@@ -72,7 +72,7 @@ exports.findAll = (req, res) => {
     .then((data) => {
       res.set("Access-Control-Expose-Headers", "X-Total-Count");
       res.set("X-Total-Count", total);
-      res.json(data);
+      res.status(200).json(data);
     })
     .catch((err) => {
       res.status(500).send({
