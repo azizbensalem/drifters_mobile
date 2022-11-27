@@ -3,11 +3,11 @@ import { Button, View } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
 import "react-native-gesture-handler";
+import AbonnementCoach from "./screens/AbonnementCoach/AbonnementCoach";
 import { LieuCoach } from "./screens/LieuCoach/lieuCoach";
 import { LoginCoach } from "./screens/LoginCoach/loginCoach";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import jwtDecode from "jwt-decode";
-import { useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 const HomeScreen = ({ navigation }) => {
@@ -48,6 +48,7 @@ export default function App() {
           }}
         >
           <Drawer.Screen name="Mes lieux" component={LieuCoach} />
+          <Drawer.Screen name="Mon abonnement" component={AbonnementCoach} />
           <Drawer.Screen name="Logout" component={HomeScreen} />
         </Drawer.Navigator>
       ) : (
