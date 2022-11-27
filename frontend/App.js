@@ -4,8 +4,10 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
 import "react-native-gesture-handler";
 import AbonnementCoach from "./screens/AbonnementCoach/AbonnementCoach";
-import { LieuCoach } from "./screens/LieuCoach/lieuCoach";
+import DefiCoach from "./screens/DefiCoach/defiCoach";
+import EventCoach from "./screens/EventCoach/eventCoach";
 import { LoginCoach } from "./screens/LoginCoach/loginCoach";
+import { LieuCoach } from "./screens/LieuCoach/lieuCoach";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import jwtDecode from "jwt-decode";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -49,6 +51,8 @@ export default function App() {
         >
           <Drawer.Screen name="Mes lieux" component={LieuCoach} />
           <Drawer.Screen name="Mon abonnement" component={AbonnementCoach} />
+          <Drawer.Screen name="Mes Défis" component={DefiCoach} />
+          <Drawer.Screen name="Mes Evenements" component={EventCoach} />
           <Drawer.Screen name="Logout" component={HomeScreen} />
         </Drawer.Navigator>
       ) : (
