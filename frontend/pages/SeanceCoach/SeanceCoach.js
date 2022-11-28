@@ -67,8 +67,6 @@ function Basic() {
   };
 
   const onRowDidOpen = (rowKey) => {
-    setOpen(true);
-    setPlacement(placement);
     console.log("This row opened", rowKey);
   };
   const [placement, setPlacement] = useState(undefined);
@@ -123,15 +121,10 @@ function Basic() {
   const [titleToUpdate, setTitleToUpdate] = useState();
   const [descriptionToUpdate, setDescriptionToUpdate] = useState();
   const updateProg = async (id, title) => {
-    console.log("-----------------------------------------");
-    console.log("id =", id);
-    await ProgService.updateProg(id, title);
-    console.log("data =", id, title);
-    const newProg = listData.map((Prog) =>
-      Prog._id === id ? { id, title } : Prog
+    const newData = listData.map((data) =>
+      data.id === id ? { id, title, description, competence, stats } : data
     );
-    setListData(newProg);
-    console.log("clicked  ", newProg);
+    setListData(newData);
     setOpen(false);
   };
   const renderItem = ({ item, index }) => (
@@ -197,7 +190,22 @@ function Basic() {
                   </FormControl.Label>
                   <Input
                     placeholder={item.title}
+                    value={item.title}
                     onChange={(e) => setTitleToUpdate(e.target.value)}
+                  />
+                </FormControl>
+                <FormControl>
+                  <FormControl.Label
+                    _text={{
+                      bold: true,
+                    }}
+                  >
+                    Description du programme
+                  </FormControl.Label>
+                  <Input
+                    placeholder={item.description}
+                    value={item.description}
+                    onChange={(e) => setDescriptionToUpdate(e.target.value)}
                   />
                 </FormControl>
               </Modal.Body>
@@ -221,7 +229,7 @@ function Basic() {
         cursor="pointer"
         bg="coolGray.200"
         justifyContent="center"
-        onPress={() => closeRow(rowMap, data.item.key)}
+        onPress={() => setOpen(true)}
         _pressed={{
           opacity: 0.5,
         }}

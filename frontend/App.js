@@ -6,6 +6,7 @@ import "react-native-gesture-handler";
 import AbonnementCoach from "./screens/AbonnementCoach/AbonnementCoach";
 import DefiCoach from "./screens/DefiCoach/defiCoach";
 import EventCoach from "./screens/EventCoach/eventCoach";
+import SeanceCoach from "./pages/SeanceCoach/SeanceCoach";
 import { LoginCoach } from "./screens/LoginCoach/loginCoach";
 import { LieuCoach } from "./screens/LieuCoach/lieuCoach";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -40,22 +41,23 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      {user == "Coach" ? (
-        <Drawer.Navigator
-          useLegacyImplementation
-          initialRouteName="Mes lieux"
-          screenOptions={{
-            headerStyle: { backgroundColor: "#00BFFF" },
-            headerTintColor: "#fff",
-          }}
-        >
-          <Drawer.Screen name="Mes lieux" component={LieuCoach} />
-          <Drawer.Screen name="Mon abonnement" component={AbonnementCoach} />
-          <Drawer.Screen name="Mes Défis" component={DefiCoach} />
-          <Drawer.Screen name="Mes Evenements" component={EventCoach} />
-          <Drawer.Screen name="Logout" component={HomeScreen} />
-        </Drawer.Navigator>
-      ) : (
+      {/* {user == "Coach" ? ( */}
+      <Drawer.Navigator
+        useLegacyImplementation
+        initialRouteName="Mes lieux"
+        screenOptions={{
+          headerStyle: { backgroundColor: "#00BFFF" },
+          headerTintColor: "#fff",
+        }}
+      >
+        <Drawer.Screen name="Mes lieux" component={LieuCoach} />
+        <Drawer.Screen name="Mon abonnement" component={AbonnementCoach} />
+        <Drawer.Screen name="Mes programmes" component={SeanceCoach} />
+        <Drawer.Screen name="Mes Défis" component={DefiCoach} />
+        <Drawer.Screen name="Mes Evenements" component={EventCoach} />
+        <Drawer.Screen name="Logout" component={HomeScreen} />
+      </Drawer.Navigator>
+      {/* ) : (
         <Drawer.Navigator
           useLegacyImplementation
           initialRouteName="Login"
@@ -70,7 +72,7 @@ export default function App() {
             options={{ headerShown: false }}
           />
         </Drawer.Navigator>
-      )}
+      )} */}
     </NavigationContainer>
   );
 }
