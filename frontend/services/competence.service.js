@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "http://localhost:8080/api/competence/";
+const url = "https://drifters.up.railway.app/api/competence/";
 const token = localStorage.getItem("user");
 
 export const addCompetence = async (competence) => {
@@ -27,7 +27,6 @@ export const modifyCompetence = async ({
   name,
   description,
   link,
-  visible,
   stars,
 }) => {
   const result = await axios.put(`${url}${id}/${token}`, {
@@ -35,7 +34,7 @@ export const modifyCompetence = async ({
     name,
     description,
     link,
-    visible,
+    visible: true,
     stars,
   });
   return result.data;

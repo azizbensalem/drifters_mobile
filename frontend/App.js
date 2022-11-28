@@ -11,6 +11,8 @@ import { LieuCoach } from "./screens/LieuCoach/lieuCoach";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import jwtDecode from "jwt-decode";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import StatScreen from "./screens/manageStats/statsScreen";
+import CompetenceScreen from "./screens/manageCompetences/CompetenceScreen";
 
 const HomeScreen = ({ navigation }) => {
   return (
@@ -53,6 +55,11 @@ export default function App() {
           <Drawer.Screen name="Mon abonnement" component={AbonnementCoach} />
           <Drawer.Screen name="Mes Défis" component={DefiCoach} />
           <Drawer.Screen name="Mes Evenements" component={EventCoach} />
+          <Drawer.Screen
+            name="Gérer competences"
+            component={CompetenceScreen}
+          />
+          <Drawer.Screen name="Gérer stat" component={StatScreen} />
           <Drawer.Screen name="Logout" component={HomeScreen} />
         </Drawer.Navigator>
       ) : (
