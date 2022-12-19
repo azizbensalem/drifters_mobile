@@ -9,7 +9,6 @@ export const AuthCoachForm = () => {
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
   const [msg, setMsg] = useState("");
-
   return (
     <Formik
       initialValues={{ email: "", password: "" }}
