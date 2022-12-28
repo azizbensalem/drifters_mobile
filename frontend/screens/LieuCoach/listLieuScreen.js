@@ -135,7 +135,7 @@ export default function ListLieuScreen({ navigation }) {
 
   useEffect(() => {
     const fetchData = async () => {
-      await LieuService.fetchAllLieux()
+      await LieuService.fetchLieux()
         .then((result) => setListData(result))
         .catch((e) => console.log("error", e));
     };

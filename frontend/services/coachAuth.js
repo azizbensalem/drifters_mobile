@@ -2,7 +2,7 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import JwtDecode from "jwt-decode";
 
-const API_URL = "https://drifters.up.railway.app/api/coach/";
+const API_URL = "http://192.168.137.1:8080/api/coach/";
 
 const register = (
   email,
@@ -23,7 +23,7 @@ const register = (
     })
     .then((response) => {
       if (typeof response.data.data !== "undefined") {
-        localStorage.setItem("user", response.data.data.token);
+        AsyncStorage.setItem("@user", response.data.data.token);
       }
       return response.data;
     });
@@ -42,11 +42,11 @@ const login = (email, password) =>
     });
 
 const logout = () => {
-  localStorage.removeItem("user");
+  AsyncStorage.removeItem("@user");
 };
 
 const getCurrentUser = async () => {
-  const token = localStorage.getItem("user");
+  const token = await AsyncStorage.getItem("@user");
   const result = await axios.get(`${API_URL}profile/${token}`);
   return result.data;
 };

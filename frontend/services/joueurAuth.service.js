@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/api/joueur/";
+const API_URL = "http://192.168.137.1:8080/api/joueur/";
 
 const register = (
   nom,
@@ -32,7 +32,7 @@ const register = (
     })
     .then((response) => {
       if (typeof response.data.data !== "undefined") {
-        localStorage.setItem("user", response.data.data.token);
+        AsyncStorage.setItem("@user", response.data.data.token);
       }
       console.log("token: ", token);
       return response.data;
@@ -46,17 +46,17 @@ const login = (email, password) =>
     })
     .then((response) => {
       if (typeof response.data.data !== "undefined") {
-        localStorage.setItem("user", response.data.data.token);
+        AsyncStorage.setItem("@user", response.data.data.token);
       }
       return response.data;
     });
 
 const logout = () => {
-  localStorage.removeItem("user");
+  AsyncStorage.removeItem("@user");
 };
 
 const getCurrentUser = async () => {
-  const token = localStorage.getItem("user");
+  const token = AsyncStorage.setItem("@user", response.data.data.token);
   console.log(token);
   const result = await axios.get(`${API_URL}profile/${token}`);
   return result.data;
@@ -77,7 +77,7 @@ const updateProfile = async (
   etat,
   typeEtablissement
 ) => {
-  const token = localStorage.getItem("user");
+  const token = AsyncStorage.setItem("@user", response.data.data.token);
 
   const result = await axios.put(`${API_URL}/profile/edit/${token}`, {
     nom,

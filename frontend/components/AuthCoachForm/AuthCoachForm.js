@@ -1,32 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Text, TouchableOpacity } from "react-native";
 import { Formik } from "formik";
 import { styles } from "./style";
 import { Alert, FormControl, Input, Stack, VStack, HStack } from "native-base";
-import { AuthService } from "../../services/coachAuth";
+import { AuthContext } from "../../context/AuthContext";
 
 export const AuthCoachForm = () => {
-  const [error, setError] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [msg, setMsg] = useState("");
+  const { login, success, msg, error } = useContext(AuthContext);
   return (
     <Formik
       initialValues={{ email: "", password: "" }}
       onSubmit={(values) => {
-        AuthService.login(values.email, values.password)
-          .then(() => {
-            setSuccess(true);
-            setMsg("Authentification effectuée avec succès");
-          })
-          .catch((e) => {
-            const resMessage =
-              (e.response && e.response.data && e.response.data.msg) ||
-              e.message ||
-              e.toString();
-
-            setError(true);
-            setMsg(resMessage);
-          });
+        login(values.email, values.password);
       }}
     >
       {({ handleChange, handleBlur, handleSubmit, values }) => (

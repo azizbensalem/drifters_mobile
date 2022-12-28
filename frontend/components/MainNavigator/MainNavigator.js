@@ -11,17 +11,19 @@ import { Button } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import StatScreen from "../../screens/manageStats/statsScreen";
 import InvitePlayer from "../../screens/InvitePlayer/invitePlayer";
+import { AuthContext } from "../../context/AuthContext";
 
 const Drawer = createDrawerNavigator();
 
-const HomeScreen = ({ navigation }) => {
+const Deconnexion = () => {
+  const { logout } = React.useContext(AuthContext);
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Button
         onPress={() => {
-          AsyncStorage.clear();
+          logout();
         }}
-        title="Logout"
+        title="Deconnexion"
       />
     </View>
   );
@@ -44,7 +46,7 @@ export default function MainNavigator() {
       <Drawer.Screen name="Mes évenements" component={EventCoach} />
       <Drawer.Screen name="Mes statistiques" component={StatScreen} />
       <Drawer.Screen name="Invité joueur" component={InvitePlayer} />
-      <Drawer.Screen name="Logout" component={HomeScreen} />
+      <Drawer.Screen name="Deconnexion" component={Deconnexion} />
     </Drawer.Navigator>
   );
 }

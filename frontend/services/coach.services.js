@@ -1,9 +1,10 @@
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 // import JwtDecode from "jwt-decode";
 
-const API_URL = "http://localhost:8080/api/coach/";
+const API_URL = "http://192.168.137.1:8080/api/coach/";
 
-const token = localStorage.getItem("user");
+const token = await AsyncStorage.getItem("@user");
 
 const updateCoach = async (nom, prenom, dateDeNaissance, photoDeProfil) => {
   const result = await axios.put(`${API_URL}profile/edit/${token}`, {

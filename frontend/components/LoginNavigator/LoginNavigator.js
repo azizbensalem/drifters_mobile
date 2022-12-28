@@ -5,7 +5,7 @@ import { LoginCoach } from "../../screens/LoginCoach/loginCoach";
 
 const Drawer = createDrawerNavigator();
 
-export default function StackNavigator() {
+export default function LoginNavigator() {
   return (
     <Drawer.Navigator
       useLegacyImplementation
