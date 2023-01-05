@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import InputMoment from "input-moment";
 import { Text, TouchableOpacity } from "react-native";
 import { Formik } from "formik";
 import { styles } from "./style";
@@ -11,18 +12,18 @@ import {
   HStack,
   Center,
 } from "native-base";
-import defiService from "../../../services/defi.service";
+import eventService from "../../../services/evenement.service";
 
-export const DefiForm = ({ navigation }) => {
+export const EventForm = ({ navigation }) => {
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
   const [msg, setMsg] = useState("");
 
   return (
     <Formik
-      initialValues={{ nom: "", objectif: "", lien: "", periode: "" }}
+      initialValues={{ nom: "",  description: "", date: "" }}
       onSubmit={(values) => {
-        defiService.postDefi(values).then((rep) => console.log(rep));
+       eventService.postEvent(values).then((rep) => console.log(rep));
         setTimeout(() => {
           navigation.goBack();
         }, 100);
@@ -35,7 +36,7 @@ export const DefiForm = ({ navigation }) => {
               <FormControl.Label>Nom</FormControl.Label>
               <Input
                 name="nom"
-                placeholder="Nom du défi"
+                placeholder="Nom du L'évenement"
                 style={styles.textInput}
                 onChangeText={handleChange("nom")}
                 onBlur={handleBlur("nom")}
@@ -47,46 +48,30 @@ export const DefiForm = ({ navigation }) => {
 
           <FormControl isRequired>
             <Stack mx="10" my="2">
-              <FormControl.Label>Objectif</FormControl.Label>
+              <FormControl.Label> Description</FormControl.Label>
               <Input
-                name="objectif"
-                placeholder="Objectif"
+                name="description"
+                placeholder="description"
                 style={styles.textInput}
-                onChangeText={handleChange("objectif")}
-                onBlur={handleBlur("objectif")}
-                value={values.objectif}
-                keyboardType="objectif"
+                onChangeText={handleChange("description")}
+                onBlur={handleBlur("description")}
+                value={values. description}
+                keyboardType="description"
               />
             </Stack>
           </FormControl>
 
           <FormControl isRequired>
             <Stack mx="10" my="2">
-              <FormControl.Label>Lien</FormControl.Label>
-              <Input
-                name="lien"
-                placeholder="Lien"
-                style={styles.textInput}
-                onChangeText={handleChange("lien")}
-                onBlur={handleBlur("lien")}
-                value={values.lien}
-                keyboardType="lien"
-              />
-            </Stack>
-          </FormControl>
-
-          <FormControl isRequired>
-            <Stack mx="10" my="2">
-              <FormControl.Label>Période</FormControl.Label>
-              <Input
-                name="periode"
-                placeholder="periode"
-                style={styles.textInput}
-                onChangeText={handleChange("periode")}
-                onBlur={handleBlur("periode")}
-                value={values.période}
-                keyboardType="periode"
-              />
+              <FormControl.Label>Date</FormControl.Label>
+              <InputMoment
+  onChange={this.handleChange}
+  onSave={this.handleSave}
+  minStep={1} // default
+  hourStep={1} // default
+  prevMonthIcon="ion-ios-arrow-left" // default
+  nextMonthIcon="ion-ios-arrow-right" // default
+/>
             </Stack>
           </FormControl>
 

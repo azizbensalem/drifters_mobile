@@ -1,8 +1,8 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const API_URL = "http://192.168.137.1:8080/api/coach/seance/";
-const API_URL_Player = "http://192.168.137.1:8080/api/joueur/seance/";
+const API_URL = "http://192.168.51.210:8080/api/coach/seance/";
+const API_URL_Player = "http://192.168.51.210:8080/api/joueur/seance/";
 
 function delay(ms) {
   return new Promise((resolve) => {

@@ -1,10 +1,9 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const API_URL = "http://192.168.137.1:8080/api/coach/evenement/";
-const API_URL_Player = "http://192.168.137.1:8080/api/joueur/evenement/";
+const API_URL = "http://192.168.51.210:8080/api/coach/evenement/";
+const API_URL_Player = "http://192.168.51.210:8080/api/joueur/evenement/";
 
-const token = await AsyncStorage.getItem("@user");
 
 function delay(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -20,6 +19,7 @@ const fetchEvent = async () => {
   const result = await axios.get(`${API_URL}${token}`);
   return result.data;
 };
+
 const fetchMesEvent = async () => {
   const token = await AsyncStorage.getItem("@user");
   const result = await axios.get(`${API_URL_Player}${token}`);
@@ -40,7 +40,6 @@ const updateEvent = async (id, nom, description, date, lieu) => {
     nom,
     description,
     date,
-    lieu,
   });
   return result.data;
 };

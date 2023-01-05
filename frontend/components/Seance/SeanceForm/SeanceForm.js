@@ -11,18 +11,20 @@ import {
   HStack,
   Center,
 } from "native-base";
-import defiService from "../../../services/defi.service";
 
-export const DefiForm = ({ navigation }) => {
+import SeanceService from "../../../services/seance.service"
+
+export const SeanceForm = ({ navigation }) => {
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
   const [msg, setMsg] = useState("");
+  
 
   return (
     <Formik
-      initialValues={{ nom: "", objectif: "", lien: "", periode: "" }}
+      initialValues={{ nom: "", periode: "" }}
       onSubmit={(values) => {
-        defiService.postDefi(values).then((rep) => console.log(rep));
+        SeanceService.postSeance(values).then((rep) => console.log(rep));
         setTimeout(() => {
           navigation.goBack();
         }, 100);
@@ -35,7 +37,7 @@ export const DefiForm = ({ navigation }) => {
               <FormControl.Label>Nom</FormControl.Label>
               <Input
                 name="nom"
-                placeholder="Nom du défi"
+                placeholder="Nom de la Séance "
                 style={styles.textInput}
                 onChangeText={handleChange("nom")}
                 onBlur={handleBlur("nom")}
@@ -44,47 +46,16 @@ export const DefiForm = ({ navigation }) => {
               />
             </Stack>
           </FormControl>
-
           <FormControl isRequired>
             <Stack mx="10" my="2">
-              <FormControl.Label>Objectif</FormControl.Label>
-              <Input
-                name="objectif"
-                placeholder="Objectif"
-                style={styles.textInput}
-                onChangeText={handleChange("objectif")}
-                onBlur={handleBlur("objectif")}
-                value={values.objectif}
-                keyboardType="objectif"
-              />
-            </Stack>
-          </FormControl>
-
-          <FormControl isRequired>
-            <Stack mx="10" my="2">
-              <FormControl.Label>Lien</FormControl.Label>
-              <Input
-                name="lien"
-                placeholder="Lien"
-                style={styles.textInput}
-                onChangeText={handleChange("lien")}
-                onBlur={handleBlur("lien")}
-                value={values.lien}
-                keyboardType="lien"
-              />
-            </Stack>
-          </FormControl>
-
-          <FormControl isRequired>
-            <Stack mx="10" my="2">
-              <FormControl.Label>Période</FormControl.Label>
+              <FormControl.Label>Periode</FormControl.Label>
               <Input
                 name="periode"
                 placeholder="periode"
                 style={styles.textInput}
                 onChangeText={handleChange("periode")}
                 onBlur={handleBlur("periode")}
-                value={values.période}
+                value={values.periode}
                 keyboardType="periode"
               />
             </Stack>

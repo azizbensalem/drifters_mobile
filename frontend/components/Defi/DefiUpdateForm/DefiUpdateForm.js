@@ -86,7 +86,7 @@ export const DefiUpdateForm = ({ route, navigation }) => {
               <FormControl.Label>Période</FormControl.Label>
               <Input
                 name="periode"
-                placeholder="Période"
+                placeholder="periode"
                 style={styles.textInput}
                 onChangeText={handleChange("periode")}
                 onBlur={handleBlur("periode")}

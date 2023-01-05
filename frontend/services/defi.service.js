@@ -1,8 +1,8 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const API_URL = "http://192.168.137.1:8080/api/coach/defi/";
-const API_URL_Player = "http://192.168.137.1:8080/api/joueur/defi/";
+const API_URL = "http://192.168.51.210:8080/api/coach/defi/";
+const API_URL_Player = "http://192.168.51.210:8080/api/joueur/defi/";
 
 const fetchDefi = async () => {
   const token = await AsyncStorage.getItem("@user");
@@ -13,7 +13,7 @@ const fetchDefi = async () => {
 const checkDone = async (id) => {
   const token = await AsyncStorage.getItem("@user");
   const result = await axios.get(
-    `http://192.168.137.1:8080/api/joueur/checkdone/${id}/${token}`
+    `http://192.168.51.210:8080/api/joueur/checkdone/${id}/${token}`
   );
   return result.data;
 };
@@ -52,7 +52,7 @@ const updateDefi = async (id, nom, objectif, lien, periode, joueurs) => {
 const defiDone = async (id) => {
   const token = await AsyncStorage.getItem("@user");
   const result = await axios.put(
-    `http://localhost:8080/api/joueur/defidone/${id}/${token}`
+    `http://192.168.51.210:8080/api/joueur/defidone/${id}/${token}`
   );
   return result.data;
 };
