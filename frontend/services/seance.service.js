@@ -1,10 +1,8 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const API_URL = "http://192.168.51.210:8080/api/coach/seance/";
-const API_URL_Player = "http://192.168.51.210:8080/api/joueur/seance/";
-
-
+const API_URL = "http://192.168.1.17:8080/api/coach/seance/";
+const API_URL_Player = "http://192.168.1.17:8080/api/joueur/seance/";
 
 function delay(ms) {
   return new Promise((resolve) => {
@@ -12,7 +10,7 @@ function delay(ms) {
   });
 }
 
-const fetchSeance  = async () => {
+const fetchSeance = async () => {
   const token = await AsyncStorage.getItem("@user");
   const result = await axios.get(`${API_URL}${token}`);
   return result.data;
@@ -27,14 +25,12 @@ const fetchSeance  = async () => {
 // };
 
 //export const feedbackSeance = async (id, objectifAtteint, feedback) => {
-  //const result = await axios.put(`${API_URL}feedbackSeance/${id}/${token}`, {
-   // objectifAtteint,
-    //feedback,
-  //});
-  //return result.data;
+//const result = await axios.put(`${API_URL}feedbackSeance/${id}/${token}`, {
+// objectifAtteint,
+//feedback,
+//});
+//return result.data;
 //};
-
-
 
 const postSeance = async (seance) => {
   AsyncStorage.getItem("@user").then(async (token) => {
@@ -42,7 +38,6 @@ const postSeance = async (seance) => {
     return result.data;
   });
 };
-
 
 export const fetchSeances = async (searchValue) => {
   const result = await axios.get(`${API_URL}${token}`);
@@ -75,9 +70,9 @@ export const fetchSeanceByFields = async (
       seance.periode.includes(seancePeriode)
   );
 };
-const   SeanceService = {
+const SeanceService = {
   fetchSeance,
-  postSeance, 
+  postSeance,
 };
 
 export default SeanceService;

@@ -21,9 +21,9 @@ export const EventForm = ({ navigation }) => {
 
   return (
     <Formik
-      initialValues={{ nom: "",  description: "", date: "" }}
+      initialValues={{ nom: "", description: "", date: "" }}
       onSubmit={(values) => {
-       eventService.postEvent(values).then((rep) => console.log(rep));
+        eventService.postEvent(values).then((rep) => console.log(rep));
         setTimeout(() => {
           navigation.goBack();
         }, 100);
@@ -41,7 +41,6 @@ export const EventForm = ({ navigation }) => {
                 onChangeText={handleChange("nom")}
                 onBlur={handleBlur("nom")}
                 value={values.nom}
-                keyboardType="nom"
               />
             </Stack>
           </FormControl>
@@ -55,8 +54,7 @@ export const EventForm = ({ navigation }) => {
                 style={styles.textInput}
                 onChangeText={handleChange("description")}
                 onBlur={handleBlur("description")}
-                value={values. description}
-                keyboardType="description"
+                value={values.description}
               />
             </Stack>
           </FormControl>
@@ -64,14 +62,14 @@ export const EventForm = ({ navigation }) => {
           <FormControl isRequired>
             <Stack mx="10" my="2">
               <FormControl.Label>Date</FormControl.Label>
-              <InputMoment
-  onChange={this.handleChange}
-  onSave={this.handleSave}
-  minStep={1} // default
-  hourStep={1} // default
-  prevMonthIcon="ion-ios-arrow-left" // default
-  nextMonthIcon="ion-ios-arrow-right" // default
-/>
+              <Input
+                name="date"
+                placeholder="Date"
+                style={styles.textInput}
+                onChangeText={handleChange("date")}
+                onBlur={handleBlur("date")}
+                value={values.date}
+              />
             </Stack>
           </FormControl>
 
