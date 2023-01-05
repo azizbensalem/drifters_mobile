@@ -12,7 +12,7 @@ import {
   Center,
 } from "native-base";
 
-import SeanceService from "../../../services/seance.service"
+import SeanceService from "../../../services/seance.service";
 
 export const SeanceForm = ({ navigation }) => {
   const [error, setError] = useState(false);

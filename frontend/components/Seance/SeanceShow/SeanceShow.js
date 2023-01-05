@@ -12,6 +12,10 @@ export const SeanceShow = ({ route, navigation }) => {
         </Text>
         <Text py="1" fontSize={17}>
           <Text bold>periode:</Text> 
+          {data.periode}
+        </Text>
+        <Text py="1" fontSize={17}>
+          <Text bold>Date</Text> 
           {data.date}
         </Text>
       </Stack>

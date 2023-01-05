@@ -56,7 +56,7 @@ export default function ListSeanceScreen({ navigation }) {
         }}
       >
         <Box pl="4" pr="5" py="2">
-          <HStack alignItems="center" space={3}>
+        <HStack alignItems="center" space={3}>
             <VStack>
               <Text
                 color="coolGray.800"
@@ -67,10 +67,26 @@ export default function ListSeanceScreen({ navigation }) {
               >
                 {item.nom}
               </Text>
-             
+              <Text
+                color="coolGray.600"
+                _dark={{
+                  color: "warmGray.200",
+                }}
+              >
+                {item.periode}
+              </Text>
             </VStack>
             <Spacer />
-           
+            <Text
+              fontSize="xs"
+              color="coolGray.800"
+              _dark={{
+                color: "warmGray.50",
+              }}
+              alignSelf="flex-start"
+            >
+              {item.date}
+            </Text>
           </HStack>
         </Box>
       </Pressable>
