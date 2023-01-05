@@ -13,7 +13,7 @@ import { PlayersCoach } from "../../screens/MyAccountCoach/PlayersCoach";
 import CoachProfile from "../../screens/CoachProfile/CoachProfile";
 import { DefiCoach } from "../../screens/DefiCoach/defiCoach";
 import EventCoach from "../../screens/EventCoach/eventCoach";
-import SeanceCoach from "../../screens/SeanceCoach/seanceCoach";
+import SeanceCoach from "../../screens/SeanceCoach/SeanceCoach";
 const Drawer = createDrawerNavigator();
 
 const Deconnexion = () => {
