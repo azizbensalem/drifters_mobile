@@ -11,22 +11,23 @@ import {
   HStack,
   Center,
 } from "native-base";
-import LieuService from "../../../services/lieu.service";
+import defiService from "../../../services/defi.service";
 
-export const LieuUpdateForm = ({ route, navigation }) => {
+export const DefiUpdateForm = ({ route, navigation }) => {
   const { data } = route.params;
   return (
     <Formik
       initialValues={data}
       onSubmit={(values) => {
         console.log(values);
-        LieuService.updateLieu(
-          values._id,
-          values.nom,
-          values.ville,
-          values.pays,
-          values.adresse
-        )
+        defiService
+          .updateDefi(
+            values._id,
+            values.nom,
+            values.objectif,
+            values.lien,
+            values.periode
+          )
           .then((rep) => console.log("resp", rep))
           .catch((e) => console.log("error", e));
         setTimeout(() => {
@@ -41,7 +42,7 @@ export const LieuUpdateForm = ({ route, navigation }) => {
               <FormControl.Label>Nom</FormControl.Label>
               <Input
                 name="nom"
-                placeholder="Nom du lieu"
+                placeholder="Nom du défi"
                 style={styles.textInput}
                 onChangeText={handleChange("nom")}
                 onBlur={handleBlur("nom")}
@@ -53,45 +54,44 @@ export const LieuUpdateForm = ({ route, navigation }) => {
 
           <FormControl isRequired>
             <Stack mx="10" my="2">
-              <FormControl.Label>Adresse</FormControl.Label>
+              <FormControl.Label>Objectif</FormControl.Label>
               <Input
-                name="adresse"
-                placeholder="Adresse"
+                name="objectif"
+                placeholder="Objectif"
                 style={styles.textInput}
-                onChangeText={handleChange("adresse")}
-                onBlur={handleBlur("adresse")}
-                value={values.adresse}
-                keyboardType="adresse"
+                onChangeText={handleChange("objectif")}
+                onBlur={handleBlur("objectif")}
+                value={values.objectif}
+                keyboardType="objectif"
               />
             </Stack>
           </FormControl>
 
           <FormControl isRequired>
             <Stack mx="10" my="2">
-              <FormControl.Label>Ville</FormControl.Label>
+              <FormControl.Label>Lien</FormControl.Label>
               <Input
-                name="ville"
-                placeholder="Ville"
+                name="lien"
+                placeholder="Lien"
                 style={styles.textInput}
-                onChangeText={handleChange("ville")}
-                onBlur={handleBlur("ville")}
-                value={values.ville}
-                keyboardType="ville"
+                onChangeText={handleChange("lien")}
+                onBlur={handleBlur("lien")}
+                value={values.lien}
               />
             </Stack>
           </FormControl>
 
           <FormControl isRequired>
             <Stack mx="10" my="2">
-              <FormControl.Label>Pays</FormControl.Label>
+              <FormControl.Label>Période</FormControl.Label>
               <Input
-                name="pays"
-                placeholder="Pays"
+                name="periode"
+                placeholder="Période"
                 style={styles.textInput}
-                onChangeText={handleChange("pays")}
-                onBlur={handleBlur("pays")}
-                value={values.pays}
-                keyboardType="pays"
+                onChangeText={handleChange("periode")}
+                onBlur={handleBlur("periode")}
+                value={values.periode}
+                keyboardType="periode"
               />
             </Stack>
           </FormControl>

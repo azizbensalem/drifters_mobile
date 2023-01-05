@@ -18,7 +18,8 @@ export const styles = StyleSheet.create({
 
   forgot_button: {
     height: 30,
-    marginTop: 10,
+    marginBottom: 30,
+    marginTop: 30,
   },
 
   loginBtn: {

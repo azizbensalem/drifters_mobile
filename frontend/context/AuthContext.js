@@ -14,8 +14,10 @@ export const AuthProvider = ({ children }) => {
     AuthService.login(email, password)
       .then((e) => {
         setSuccess(true);
-        setUserToken(e.data.token);
         setMsg("Authentification effectuée avec succès");
+        setTimeout(() => {
+          setUserToken(e.data.token);
+        }, 500);
       })
       .catch((e) => {
         const resMessage =
@@ -43,6 +45,7 @@ export const AuthProvider = ({ children }) => {
       console.log(`isLogged in error ${e}`);
     }
   };
+
   useEffect(() => {
     isLoggedIn();
   }, []);

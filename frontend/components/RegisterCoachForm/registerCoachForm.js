@@ -1,17 +1,36 @@
 import React, { useContext, useState } from "react";
-import { Text, TouchableOpacity } from "react-native";
+import { DatePickerIOSBase, Text, TouchableOpacity } from "react-native";
 import { Formik } from "formik";
 import { styles } from "./style";
 import { Alert, FormControl, Input, Stack, VStack, HStack } from "native-base";
-import { AuthContext } from "../../context/AuthContext";
+import { AuthService } from "../../services/coachAuth";
 
-export const AuthCoachForm = ({ navigation }) => {
-  const { login, success, msg, error } = useContext(AuthContext);
+export const RegisterCoachForm = ({ navigation }) => {
+  const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [msg, setMsg] = useState("");
   return (
     <Formik
-      initialValues={{ email: "", password: "" }}
+      initialValues={{ email: "", password: "", nom: "", prenom: "" }}
       onSubmit={(values) => {
-        login(values.email, values.password);
+        AuthService.register(
+          values.email,
+          values.password,
+          values.nom,
+          values.prenom
+        )
+          .then((e) => {
+            setSuccess(true);
+            setMsg(e.msg);
+          })
+          .catch((e) => {
+            const resMessage =
+              (e.response && e.response.data && e.response.data.msg) ||
+              e.message ||
+              e.toString();
+            setError(true);
+            setMsg(resMessage);
+          });
       }}
     >
       {({ handleChange, handleBlur, handleSubmit, values }) => (
@@ -66,7 +85,33 @@ export const AuthCoachForm = ({ navigation }) => {
               />
             </Stack>
           </FormControl>
-
+          <FormControl isRequired>
+            <Stack mx="10" my="2">
+              <FormControl.Label>Prénom</FormControl.Label>
+              <Input
+                name="prenom"
+                placeholder="Prénom"
+                style={styles.textInput}
+                onChangeText={handleChange("prenom")}
+                onBlur={handleBlur("prenom")}
+                value={values.prenom}
+                keyboardType="default"
+              />
+            </Stack>
+          </FormControl>
+          <FormControl isRequired>
+            <Stack mx="10" my="2">
+              <FormControl.Label>Nom</FormControl.Label>
+              <Input
+                name="nom"
+                placeholder="Nom"
+                style={styles.textInput}
+                onChangeText={handleChange("nom")}
+                onBlur={handleBlur("nom")}
+                value={values.nom}
+              />
+            </Stack>
+          </FormControl>
           <FormControl isRequired>
             <Stack mx="10" my="2">
               <FormControl.Label>Password</FormControl.Label>
@@ -81,16 +126,21 @@ export const AuthCoachForm = ({ navigation }) => {
               />
             </Stack>
           </FormControl>
-          <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-            <Text style={styles.forgot_button}>Register coach</Text>
+          <TouchableOpacity
+            style={styles.forgot_button}
+            onPress={() => {
+              navigation.navigate("Login");
+            }}
+          >
+            <Text>Login coach</Text>
           </TouchableOpacity>
-          <TouchableOpacity>
-            <Text style={styles.forgot_button}>Login player</Text>
+          <TouchableOpacity style={styles.forgot_button}>
+            <Text>Login player</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.loginBtn}>
             <Text onPress={handleSubmit} style={styles.loginText}>
-              LOGIN
+              REGISTER
             </Text>
           </TouchableOpacity>
         </>

@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Text, View, Image, TextInput, TouchableOpacity } from "react-native";
 import { styles } from "./style";
 import { NativeBaseProvider } from "native-base";
-import { AuthCoachForm } from "../../components/AuthCoachForm/AuthCoachForm";
+import { RegisterCoachForm } from "../../components/RegisterCoachForm/registerCoachForm";
 
-export const LoginCoach = ({ navigation }) => {
+export const RegisterCoach = ({ navigation }) => {
   return (
     <NativeBaseProvider>
       <View style={styles.container}>
@@ -12,7 +12,7 @@ export const LoginCoach = ({ navigation }) => {
           style={styles.image}
           source={require("../../assets/drifterslogo.png")}
         />
-        <AuthCoachForm navigation={navigation} />
+        <RegisterCoachForm navigation={navigation} />
       </View>
     </NativeBaseProvider>
   );

@@ -11,27 +11,21 @@ import {
   HStack,
   Center,
 } from "native-base";
-import LieuService from "../../../services/lieu.service";
+import defiService from "../../../services/defi.service";
 
-export const LieuUpdateForm = ({ route, navigation }) => {
-  const { data } = route.params;
+export const DefiForm = ({ navigation }) => {
+  const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [msg, setMsg] = useState("");
+
   return (
     <Formik
-      initialValues={data}
+      initialValues={{ nom: "", objectif: "", lien: "", periode: "" }}
       onSubmit={(values) => {
-        console.log(values);
-        LieuService.updateLieu(
-          values._id,
-          values.nom,
-          values.ville,
-          values.pays,
-          values.adresse
-        )
-          .then((rep) => console.log("resp", rep))
-          .catch((e) => console.log("error", e));
+        defiService.postDefi(values).then((rep) => console.log(rep));
         setTimeout(() => {
           navigation.goBack();
-        }, 200);
+        }, 100);
       }}
     >
       {({ handleChange, handleBlur, handleSubmit, values }) => (
@@ -41,7 +35,7 @@ export const LieuUpdateForm = ({ route, navigation }) => {
               <FormControl.Label>Nom</FormControl.Label>
               <Input
                 name="nom"
-                placeholder="Nom du lieu"
+                placeholder="Nom du défi"
                 style={styles.textInput}
                 onChangeText={handleChange("nom")}
                 onBlur={handleBlur("nom")}
@@ -53,45 +47,45 @@ export const LieuUpdateForm = ({ route, navigation }) => {
 
           <FormControl isRequired>
             <Stack mx="10" my="2">
-              <FormControl.Label>Adresse</FormControl.Label>
+              <FormControl.Label>Objectif</FormControl.Label>
               <Input
-                name="adresse"
-                placeholder="Adresse"
+                name="objectif"
+                placeholder="Objectif"
                 style={styles.textInput}
-                onChangeText={handleChange("adresse")}
-                onBlur={handleBlur("adresse")}
-                value={values.adresse}
-                keyboardType="adresse"
+                onChangeText={handleChange("objectif")}
+                onBlur={handleBlur("objectif")}
+                value={values.objectif}
+                keyboardType="objectif"
               />
             </Stack>
           </FormControl>
 
           <FormControl isRequired>
             <Stack mx="10" my="2">
-              <FormControl.Label>Ville</FormControl.Label>
+              <FormControl.Label>Lien</FormControl.Label>
               <Input
-                name="ville"
-                placeholder="Ville"
+                name="lien"
+                placeholder="Lien"
                 style={styles.textInput}
-                onChangeText={handleChange("ville")}
-                onBlur={handleBlur("ville")}
-                value={values.ville}
-                keyboardType="ville"
+                onChangeText={handleChange("lien")}
+                onBlur={handleBlur("lien")}
+                value={values.lien}
+                keyboardType="lien"
               />
             </Stack>
           </FormControl>
 
           <FormControl isRequired>
             <Stack mx="10" my="2">
-              <FormControl.Label>Pays</FormControl.Label>
+              <FormControl.Label>Période</FormControl.Label>
               <Input
-                name="pays"
-                placeholder="Pays"
+                name="période"
+                placeholder="Période"
                 style={styles.textInput}
-                onChangeText={handleChange("pays")}
-                onBlur={handleBlur("pays")}
-                value={values.pays}
-                keyboardType="pays"
+                onChangeText={handleChange("période")}
+                onBlur={handleBlur("période")}
+                value={values.période}
+                keyboardType="période"
               />
             </Stack>
           </FormControl>
@@ -99,7 +93,7 @@ export const LieuUpdateForm = ({ route, navigation }) => {
           <Center>
             <TouchableOpacity style={styles.loginBtn}>
               <Text onPress={handleSubmit} style={styles.loginText}>
-                EDIT
+                AJOUTER
               </Text>
             </TouchableOpacity>
           </Center>

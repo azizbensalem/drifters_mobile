@@ -12,20 +12,21 @@ import {
   Center,
 } from "native-base";
 import LieuService from "../../../services/lieu.service";
+import CoachService from "../../../services/coach.services";
 
-export const LieuUpdateForm = ({ route, navigation }) => {
+export const PlayerUpdateForm = ({ route, navigation }) => {
   const { data } = route.params;
   return (
     <Formik
       initialValues={data}
       onSubmit={(values) => {
         console.log(values);
-        LieuService.updateLieu(
+        CoachService.updatePlayer(
           values._id,
           values.nom,
-          values.ville,
-          values.pays,
-          values.adresse
+          values.prenom,
+          values.email,
+          values.dateDeNaissance
         )
           .then((rep) => console.log("resp", rep))
           .catch((e) => console.log("error", e));
@@ -53,45 +54,45 @@ export const LieuUpdateForm = ({ route, navigation }) => {
 
           <FormControl isRequired>
             <Stack mx="10" my="2">
-              <FormControl.Label>Adresse</FormControl.Label>
+              <FormControl.Label>Prénom</FormControl.Label>
               <Input
-                name="adresse"
-                placeholder="Adresse"
+                name="prenom"
+                placeholder="Prénom"
                 style={styles.textInput}
-                onChangeText={handleChange("adresse")}
-                onBlur={handleBlur("adresse")}
-                value={values.adresse}
-                keyboardType="adresse"
+                onChangeText={handleChange("prenom")}
+                onBlur={handleBlur("prenom")}
+                value={values.prenom}
+                keyboardType="prenom"
               />
             </Stack>
           </FormControl>
 
           <FormControl isRequired>
             <Stack mx="10" my="2">
-              <FormControl.Label>Ville</FormControl.Label>
+              <FormControl.Label>Email</FormControl.Label>
               <Input
-                name="ville"
-                placeholder="Ville"
+                name="email"
+                placeholder="Email"
                 style={styles.textInput}
-                onChangeText={handleChange("ville")}
-                onBlur={handleBlur("ville")}
-                value={values.ville}
-                keyboardType="ville"
+                onChangeText={handleChange("email")}
+                onBlur={handleBlur("email")}
+                value={values.email}
+                keyboardType="email"
               />
             </Stack>
           </FormControl>
 
           <FormControl isRequired>
             <Stack mx="10" my="2">
-              <FormControl.Label>Pays</FormControl.Label>
+              <FormControl.Label>Date de naissance</FormControl.Label>
               <Input
-                name="pays"
-                placeholder="Pays"
+                name="dateDeNaissance"
+                placeholder="Date de naissance"
                 style={styles.textInput}
-                onChangeText={handleChange("pays")}
-                onBlur={handleBlur("pays")}
-                value={values.pays}
-                keyboardType="pays"
+                onChangeText={handleChange("dateDeNaissance")}
+                onBlur={handleBlur("dateDeNaissance")}
+                value={values.dateDeNaissance}
+                keyboardType="dateDeNaissance"
               />
             </Stack>
           </FormControl>
