@@ -30,5 +30,10 @@ export const abonnementStyles = StyleSheet.create({
     marginTop: 40,
     backgroundColor: "#00BFFF",
     color: "#FFFFFF",
+    marginLeft: 70,
+  },
+
+  loginText: {
+    color: "#FFFFFF",
   },
 });

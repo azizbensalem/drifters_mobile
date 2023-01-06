@@ -10,6 +10,8 @@ export const AuthProvider = ({ children }) => {
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
   const [msg, setMsg] = useState("");
+  const [abonnement, setAbonnement] = useState("");
+  const [data, setData] = useState({});
 
   const login = (email, password) => {
     AuthService.login(email, password)
@@ -51,6 +53,16 @@ export const AuthProvider = ({ children }) => {
       });
   };
 
+  const getUser = () => {
+    AuthService.getCurrentUser()
+      .then((u) => {
+        console.log("data", u);
+        setAbonnement(u.abonnement);
+        setData(u);
+      })
+      .catch((e) => console.log("error", e));
+  };
+
   const logout = () => {
     setUserToken(null);
     setSuccess(false);
@@ -69,11 +81,23 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     isLoggedIn();
+    getUser();
   }, []);
 
   return (
     <AuthContext.Provider
-      value={{ login, loginPlayer, logout, userToken, success, msg, error }}
+      value={{
+        login,
+        loginPlayer,
+        logout,
+        getUser,
+        userToken,
+        success,
+        msg,
+        error,
+        abonnement,
+        data,
+      }}
     >
       {children}
     </AuthContext.Provider>
