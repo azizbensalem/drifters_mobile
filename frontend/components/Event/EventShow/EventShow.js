@@ -11,10 +11,10 @@ export const EventShow = ({ route, navigation }) => {
           {data.nom}
         </Text>
         <Text py="1" fontSize={17}>
-          <Text bold>Description:</Text> {data.objectif}
+          <Text bold>Description:</Text> {data.description}
         </Text>
         <Text py="1" fontSize={17}>
-          <Text bold>Date:</Text> {data.lien}
+          <Text bold>Date:</Text> {data.date}
         </Text>
       </Stack>
     </Stack>

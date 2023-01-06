@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import InputMoment from "input-moment";
 import { Text, TouchableOpacity } from "react-native";
 import { Formik } from "formik";
 import { styles } from "./style";
@@ -64,14 +63,16 @@ export const EventForm = ({ navigation }) => {
           <FormControl isRequired>
             <Stack mx="10" my="2">
               <FormControl.Label>Date</FormControl.Label>
-              <InputMoment
-  onChange={this.handleChange}
-  onSave={this.handleSave}
-  minStep={1} // default
-  hourStep={1} // default
-  prevMonthIcon="ion-ios-arrow-left" // default
-  nextMonthIcon="ion-ios-arrow-right" // default
-/>
+              <Input
+                name="date"
+                placeholder="date"
+                style={styles.textInput}
+                onChangeText={handleChange("date")}
+                onBlur={handleBlur("date")}
+                value={values.date}
+                keyboardType="Date"
+                type="Date"
+              />
             </Stack>
           </FormControl>
 

@@ -20,6 +20,7 @@ const fetchEvent = async () => {
   return result.data;
 };
 
+
 const fetchMesEvent = async () => {
   const token = await AsyncStorage.getItem("@user");
   const result = await axios.get(`${API_URL_Player}${token}`);
