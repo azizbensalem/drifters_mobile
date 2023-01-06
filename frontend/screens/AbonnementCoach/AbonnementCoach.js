@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { Dimensions, TouchableOpacity, View } from "react-native";
+import React, { useContext, useEffect, useState } from "react";
 import {
   NativeBaseProvider,
   Radio,
@@ -10,31 +9,20 @@ import {
   Button,
   Container,
   Stack,
-  Center,
   FormControl,
 } from "native-base";
-import { SwipeListView } from "react-native-swipe-list-view";
-import { MaterialIcons, Ionicons, Entypo } from "@expo/vector-icons";
-import { ScrollView } from "react-native-gesture-handler";
 import { abonnementStyles } from "./styles";
 import { Formik } from "formik";
 import { AuthService } from "../../services/coachAuth";
 import CoachService from "../../services/coach.services";
+import { AuthContext } from "../../context/AuthContext";
+import { TouchableOpacity } from "react-native";
 
 export default function AbonnementCoach() {
-  const [placement, setPlacement] = useState(undefined);
   const [open, setOpen] = useState(false);
-  const [abonnement, setAbonnement] = useState("");
+  const [error, setError] = useState(false);
 
-  const openModal = (placement) => {
-    setOpen(true);
-    setPlacement(placement);
-  };
-
-  useEffect(() => {
-    AuthService.getCurrentUser().then((u) => setAbonnement(u.abonnement));
-    console.log(abonnement);
-  }, [abonnement]);
+  const { abonnement } = useContext(AuthContext);
 
   return (
     <NativeBaseProvider>
@@ -42,24 +30,40 @@ export default function AbonnementCoach() {
         <Heading size="xl" mb="4">
           <Text>Abonnement</Text>
         </Heading>
+        <Text fontSize="xl">Votre plan actuel est {abonnement}</Text>
         <Text fontSize="xl">Choisissez l'un des trois plans disponibles</Text>
+        {open ? <Text fontSize="xl">Plan modifié</Text> : ""}
+        {error ? (
+          <Text fontSize="xl">Veuiller remplir le formulaire SVP</Text>
+        ) : (
+          ""
+        )}
       </Box>
       <Container style={abonnementStyles.container}>
         <Formik
           initialValues={{ abonnement: abonnement }}
           onSubmit={(values) => {
             console.log(values);
-            CoachService.updateAbonnement(values.abonnement)
-              .then((e) => console.log(e))
-              .catch((e) => console.log(e));
+            if (values.abonnement != "") {
+              CoachService.updateAbonnement(values.abonnement)
+                .then((e) => {
+                  setOpen(true);
+                  setError(false);
+                })
+                .catch((e) => console.log(e));
+            } else {
+              setError(true);
+              setOpen(false);
+            }
           }}
         >
           {({ handleChange, handleBlur, handleSubmit, values }) => (
-            <Stack my="10">
+            <Stack my="1">
               <FormControl isRequired>
                 <Radio.Group
                   name="abonnement"
                   accessibilityLabel="favorite colorscheme"
+                  value={values.abonnement}
                   onChange={handleChange("abonnement")}
                 >
                   <Radio
@@ -97,14 +101,17 @@ export default function AbonnementCoach() {
                     Le plan PREMIUM n'impose aucun limite au nombre de joueurs
                     inscris.
                   </Text>
-                  <Button
+                </Radio.Group>
+                <TouchableOpacity style={abonnementStyles.loginBtn}>
+                  <Text
                     onPress={() => {
                       handleSubmit();
                     }}
+                    style={abonnementStyles.loginText}
                   >
                     Confirmer
-                  </Button>
-                </Radio.Group>
+                  </Text>
+                </TouchableOpacity>
               </FormControl>
               {/* <Modal
                 isOpen={open}
