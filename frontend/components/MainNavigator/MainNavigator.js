@@ -4,8 +4,6 @@ import "react-native-gesture-handler";
 import { LieuCoach } from "../../screens/LieuCoach/lieuCoach";
 import AbonnementCoach from "../../screens/AbonnementCoach/AbonnementCoach";
 
-
-
 import { View } from "native-base";
 import { Button } from "react-native";
 import StatScreen from "../../screens/manageStats/statsScreen";

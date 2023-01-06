@@ -12,7 +12,6 @@ import {
   Center,
 } from "native-base";
 
-
 import eventService from "../../../services/evenement.service";
 
 export const EventUpdateForm = ({ route, navigation }) => {
@@ -22,12 +21,8 @@ export const EventUpdateForm = ({ route, navigation }) => {
       initialValues={data}
       onSubmit={(values) => {
         console.log(values);
-        eventService.updateEvent(
-            values._id,
-            values.nom,
-            values.description,
-            values.date,
-          )
+        eventService
+          .updateEvent(values._id, values.nom, values.description, values.date)
           .then((rep) => console.log("resp", rep))
           .catch((e) => console.log("error", e));
         setTimeout(() => {
@@ -81,7 +76,6 @@ export const EventUpdateForm = ({ route, navigation }) => {
               />
             </Stack>
           </FormControl>
-
 
           <Center>
             <TouchableOpacity style={styles.loginBtn}>

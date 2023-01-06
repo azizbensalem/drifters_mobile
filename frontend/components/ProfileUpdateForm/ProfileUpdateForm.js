@@ -14,9 +14,6 @@ import {
 import CoachService from "../../services/coach.services";
 
 export const ProfileUpdateForm = ({ user }) => {
-  const [error, setError] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [msg, setMsg] = useState("");
   return (
     <Stack>
       <Formik
