@@ -30,6 +30,7 @@
     "react": "18.1.0",
     "react-dom": "18.1.0",
     "react-native": "0.70.5",
+    "react-native-config": "^1.4.11",
     "react-native-gesture-handler": "~2.8.0",
     "react-native-pager-view": "6.0.1",
     "react-native-paper": "^4.7.2",
@@ -42,7 +43,8 @@
     "react-native-web": "~0.18.9"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.12.9",
+    "babel-plugin-transform-inline-environment-variables": "^0.4.4"
   },
   "private": true
 }

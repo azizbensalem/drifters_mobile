@@ -1,9 +1,9 @@
 // In App.js in a new project
 
-import * as React from "react";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { NativeBaseProvider } from "native-base";
-import { StatUpdateForm } from "../../components/Lieu/StatUpdateForm/StatUpdateForm";
+import * as React from 'react';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NativeBaseProvider } from 'native-base';
+import { StatUpdateForm } from '../../components/Stat/StatUpdateForm/StatUpdateForm';
 
 const Stack = createNativeStackNavigator();
 

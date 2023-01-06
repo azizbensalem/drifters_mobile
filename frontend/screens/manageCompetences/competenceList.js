@@ -16,12 +16,12 @@ import {
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { ScrollView } from 'react-native-gesture-handler';
 import {
-  removeStatistique,
-  fetchStatistiques,
-} from '../../services/statistique.service';
+  fetchCompetences,
+  removeCompetence,
+} from '../../services/competence.service';
 import { AntDesign, Entypo, MaterialIcons } from '@expo/vector-icons';
 
-export default function StatisticScreen({ navigation }) {
+export default function CompetenceList({ navigation }) {
   const [listData, setListData] = useState('');
 
   const closeRow = (rowMap, rowKey) => {
@@ -32,7 +32,7 @@ export default function StatisticScreen({ navigation }) {
 
   const deleteRow = (rowMap, rowKey) => {
     closeRow(rowMap, rowKey);
-    removeStatistique(rowKey);
+    removeCompetence(rowKey);
   };
 
   const renderHiddenItem = (data, rowMap) => {
@@ -45,7 +45,7 @@ export default function StatisticScreen({ navigation }) {
           bg='success.700'
           justifyContent='center'
           onPress={() =>
-            navigation.navigate('Modifier une statistique', { data: data.item })
+            navigation.navigate('Modifier un competence', { data: data.item })
           }
           _pressed={{
             opacity: 0.5,
@@ -91,7 +91,7 @@ export default function StatisticScreen({ navigation }) {
     <Box>
       <Pressable
         onPress={() =>
-          navigation.navigate('Afficher une statistique', { data: item })
+          navigation.navigate('Afficher un competence', { data: item })
         }
         _dark={{
           bg: 'coolGray.800',
@@ -110,7 +110,7 @@ export default function StatisticScreen({ navigation }) {
                 }}
                 bold
               >
-                {item.nom}
+                {item.name}
               </Text>
               <Text
                 color='coolGray.600'
@@ -118,7 +118,7 @@ export default function StatisticScreen({ navigation }) {
                   color: 'warmGray.200',
                 }}
               >
-                {item.adresse}
+                {item.description}
               </Text>
             </VStack>
             <Spacer />
@@ -130,7 +130,7 @@ export default function StatisticScreen({ navigation }) {
               }}
               alignSelf='flex-start'
             >
-              {item.ville}
+              {item.stars}
             </Text>
           </HStack>
         </Box>
@@ -140,7 +140,7 @@ export default function StatisticScreen({ navigation }) {
 
   useEffect(() => {
     const fetchData = async () => {
-      await fetchStatistiques()
+      await fetchCompetences()
         .then((result) => setListData(result))
         .catch((e) => console.log('error', e));
     };
@@ -163,7 +163,7 @@ export default function StatisticScreen({ navigation }) {
           w='100%'
         >
           <Heading p='4' pb='3' size='lg'>
-            Liste des statistiques
+            Liste des competences
           </Heading>
           <ScrollView showsVerticalScrollIndicator={false}>
             <Box bg='white' safeArea flex='1'>
@@ -178,7 +178,7 @@ export default function StatisticScreen({ navigation }) {
                 onRowDidOpen={onRowDidOpen}
               />
               <Fab
-                onPress={() => navigation.navigate("Ajout d'une statistique")}
+                onPress={() => navigation.navigate("Ajout d'un competence")}
                 shadow={2}
                 size='md'
                 placement='bottom-right'
