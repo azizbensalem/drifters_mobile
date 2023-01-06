@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Dimensions, TouchableOpacity, View } from "react-native";
 import {
   NativeBaseProvider,
@@ -11,22 +11,30 @@ import {
   Container,
   Stack,
   Center,
+  FormControl,
 } from "native-base";
 import { SwipeListView } from "react-native-swipe-list-view";
 import { MaterialIcons, Ionicons, Entypo } from "@expo/vector-icons";
 import { ScrollView } from "react-native-gesture-handler";
 import { abonnementStyles } from "./styles";
 import { Formik } from "formik";
+import { AuthService } from "../../services/coachAuth";
+import CoachService from "../../services/coach.services";
 
 export default function AbonnementCoach() {
-  const [abonnement, setAbonnement] = useState(3);
   const [placement, setPlacement] = useState(undefined);
   const [open, setOpen] = useState(false);
+  const [abonnement, setAbonnement] = useState("");
 
   const openModal = (placement) => {
     setOpen(true);
     setPlacement(placement);
   };
+
+  useEffect(() => {
+    AuthService.getCurrentUser().then((u) => setAbonnement(u.abonnement));
+    console.log(abonnement);
+  }, [abonnement]);
 
   return (
     <NativeBaseProvider>
@@ -38,59 +46,67 @@ export default function AbonnementCoach() {
       </Box>
       <Container style={abonnementStyles.container}>
         <Formik
-          initialValues={{ abonnement: "Basic" }}
+          initialValues={{ abonnement: abonnement }}
           onSubmit={(values) => {
             console.log(values);
+            CoachService.updateAbonnement(values.abonnement)
+              .then((e) => console.log(e))
+              .catch((e) => console.log(e));
           }}
         >
           {({ handleChange, handleBlur, handleSubmit, values }) => (
             <Stack my="10">
-              <Radio.Group
-                defaultValue="3"
-                name="OptionAbonnement"
-                accessibilityLabel="favorite colorscheme"
-                onChange={() => {
-                  setOpen(true);
-                  handleChange("abonnement");
-                }}
-              >
-                <Radio
-                  colorScheme="emerald"
+              <FormControl isRequired>
+                <Radio.Group
                   name="abonnement"
-                  value="Free"
-                  my={1}
+                  accessibilityLabel="favorite colorscheme"
+                  onChange={handleChange("abonnement")}
                 >
-                  Free
-                </Radio>
-                <Text style={abonnementStyles.radioSubText}>
-                  Le plan FREE vous permet d'avoir 3 joueurs inscris
-                  gratuitement.
-                </Text>
-                <Radio
-                  colorScheme="emerald"
-                  name="abonnement"
-                  value="Basic"
-                  my={1}
-                >
-                  Basic
-                </Radio>
-                <Text style={abonnementStyles.radioSubText}>
-                  Le plan BASIC vous permet d'avoir 10 joueurs inscris.
-                </Text>
-                <Radio
-                  colorScheme="emerald"
-                  name="abonnement"
-                  value="Premium"
-                  my={1}
-                >
-                  Premium
-                </Radio>
-                <Text style={abonnementStyles.radioSubText}>
-                  Le plan PREMIUM n'impose aucun limite au nombre de joueurs
-                  inscris.
-                </Text>
-              </Radio.Group>
-              <Modal
+                  <Radio
+                    colorScheme="emerald"
+                    name="abonnement"
+                    value="Free"
+                    my={1}
+                  >
+                    Free
+                  </Radio>
+                  <Text style={abonnementStyles.radioSubText}>
+                    Le plan FREE vous permet d'avoir 3 joueurs inscris
+                    gratuitement.
+                  </Text>
+                  <Radio
+                    colorScheme="emerald"
+                    name="abonnement"
+                    value="Basic"
+                    my={1}
+                  >
+                    Basic
+                  </Radio>
+                  <Text style={abonnementStyles.radioSubText}>
+                    Le plan BASIC vous permet d'avoir 10 joueurs inscris.
+                  </Text>
+                  <Radio
+                    colorScheme="emerald"
+                    name="abonnement"
+                    value="Premium"
+                    my={1}
+                  >
+                    Premium
+                  </Radio>
+                  <Text style={abonnementStyles.radioSubText}>
+                    Le plan PREMIUM n'impose aucun limite au nombre de joueurs
+                    inscris.
+                  </Text>
+                  <Button
+                    onPress={() => {
+                      handleSubmit();
+                    }}
+                  >
+                    Confirmer
+                  </Button>
+                </Radio.Group>
+              </FormControl>
+              {/* <Modal
                 isOpen={open}
                 onClose={() => setOpen(false)}
                 safeAreaTop={true}
@@ -108,6 +124,7 @@ export default function AbonnementCoach() {
                     <Button.Group space={2}>
                       <Button
                         onPress={() => {
+                          handleSubmit();
                           setOpen(false);
                         }}
                       >
@@ -126,7 +143,7 @@ export default function AbonnementCoach() {
                     </Button.Group>
                   </Modal.Footer>
                 </Modal.Content>
-              </Modal>
+              </Modal> */}
             </Stack>
           )}
         </Formik>
