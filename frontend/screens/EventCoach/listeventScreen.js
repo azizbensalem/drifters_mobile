@@ -11,13 +11,14 @@ import {
   Heading,
   Fab,
   Icon,
+  Button,
 } from "native-base";
 import { SwipeListView } from "react-native-swipe-list-view";
 import { ScrollView } from "react-native-gesture-handler";
 import { AntDesign, Entypo, MaterialIcons } from "@expo/vector-icons";
-import defiService from "../../services/defi.service";
+import eventService from "../../services/evenement.service";
 
-export default function ListDefiScreen({ navigation }) {
+export default function ListEventScreen({ navigation }) {
   const [listData, setListData] = useState("");
 
   const closeRow = (rowMap, rowKey) => {
@@ -28,7 +29,7 @@ export default function ListDefiScreen({ navigation }) {
 
   const deleteRow = (rowMap, rowKey) => {
     closeRow(rowMap, rowKey);
-    defiService.deleteDefi(rowKey);
+    eventService.deleteEvent(rowKey);
   };
 
   const renderHiddenItem = (data, rowMap) => {
@@ -41,7 +42,7 @@ export default function ListDefiScreen({ navigation }) {
           bg="success.700"
           justifyContent="center"
           onPress={() =>
-            navigation.navigate("Modifier un défi", { data: data.item })
+            navigation.navigate("Modifier un évenement", { data: data.item })
           }
           _pressed={{
             opacity: 0.5,
@@ -86,7 +87,9 @@ export default function ListDefiScreen({ navigation }) {
   const renderItem = ({ item, index }) => (
     <Box>
       <Pressable
-        onPress={() => navigation.navigate("Afficher un défi", { data: item })}
+        onPress={() =>
+          navigation.navigate("Afficher un évenement", { data: item })
+        }
         _dark={{
           bg: "coolGray.800",
         }}
@@ -112,7 +115,7 @@ export default function ListDefiScreen({ navigation }) {
                   color: "warmGray.200",
                 }}
               >
-                {item.objectif}
+                {item.description}
               </Text>
             </VStack>
             <Spacer />
@@ -124,7 +127,7 @@ export default function ListDefiScreen({ navigation }) {
               }}
               alignSelf="flex-start"
             >
-              {item.periode}
+              {item.date}
             </Text>
           </HStack>
         </Box>
@@ -134,8 +137,8 @@ export default function ListDefiScreen({ navigation }) {
 
   useEffect(() => {
     const fetchData = async () => {
-      await defiService
-        .fetchDefi()
+      await eventService
+        .fetchEvent()
         .then((result) => setListData(result))
         .catch((e) => console.log("error", e));
     };
@@ -158,7 +161,7 @@ export default function ListDefiScreen({ navigation }) {
           w="100%"
         >
           <Heading p="4" pb="3" size="lg">
-            Liste des défis
+            Liste des Évenements
           </Heading>
           <ScrollView showsVerticalScrollIndicator={false}>
             <Box bg="white" safeArea flex="1">
@@ -173,7 +176,7 @@ export default function ListDefiScreen({ navigation }) {
                 onRowDidOpen={onRowDidOpen}
               />
               <Fab
-                onPress={() => navigation.navigate("Ajout d'un défi")}
+                onPress={() => navigation.navigate("Ajout d'un évenement")}
                 shadow={2}
                 size="md"
                 placement="bottom-right"

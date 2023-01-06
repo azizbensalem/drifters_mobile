@@ -3,6 +3,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import "react-native-gesture-handler";
 import { LoginCoach } from "../../screens/LoginCoach/loginCoach";
 import { RegisterCoach } from "../../screens/RegisterCoach/registerCoach";
+import { LoginPlayer } from "../../screens/LoginPlayer/loginPlayer";
 
 const Drawer = createDrawerNavigator();
 
@@ -19,6 +20,12 @@ export default function LoginNavigator({ navigation }) {
       <Drawer.Screen
         name="Login"
         component={LoginCoach}
+        headerShown={false}
+        options={{ headerMode: "none", headerShown: false }}
+      />
+      <Drawer.Screen
+        name="Login player"
+        component={LoginPlayer}
         headerShown={false}
         options={{ headerMode: "none", headerShown: false }}
       />

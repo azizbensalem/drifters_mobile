@@ -1,16 +1,8 @@
 import React, { useState } from "react";
-import { Alert, TouchableOpacity } from "react-native";
+import { TouchableOpacity } from "react-native";
 import { Formik } from "formik";
 import { styles } from "./style";
-import {
-  FormControl,
-  Input,
-  Stack,
-  Center,
-  VStack,
-  HStack,
-  Text,
-} from "native-base";
+import { FormControl, Input, Stack, Center, Text } from "native-base";
 import CoachService from "../../services/coach.services";
 
 export const ProfileUpdateForm = ({ user }) => {

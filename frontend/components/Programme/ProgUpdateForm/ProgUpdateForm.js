@@ -3,23 +3,22 @@ import { Text, TouchableOpacity } from "react-native";
 import { Formik } from "formik";
 import { styles } from "./style";
 import { FormControl, Input, Stack, Center } from "native-base";
-import defiService from "../../../services/defi.service";
+import ProgService from "../../../services/progService";
 
-export const DefiUpdateForm = ({ route, navigation }) => {
+export const ProgUpdateForm = ({ route, navigation }) => {
   const { data } = route.params;
   return (
     <Formik
       initialValues={data}
       onSubmit={(values) => {
         console.log(values);
-        defiService
-          .updateDefi(
-            values._id,
-            values.nom,
-            values.objectif,
-            values.lien,
-            values.periode
-          )
+        ProgService.updateProg(
+          values._id,
+          values.title,
+          values.description,
+          values.src,
+          values.video
+        )
           .then((rep) => console.log("resp", rep))
           .catch((e) => console.log("error", e));
         setTimeout(() => {
@@ -31,59 +30,56 @@ export const DefiUpdateForm = ({ route, navigation }) => {
         <Stack my="10">
           <FormControl isRequired>
             <Stack mx="10" my="2">
-              <FormControl.Label>Nom</FormControl.Label>
+              <FormControl.Label>Titre</FormControl.Label>
               <Input
-                name="nom"
-                placeholder="Nom du défi"
+                name="title"
+                placeholder="Titre du programme séance"
                 style={styles.textInput}
-                onChangeText={handleChange("nom")}
-                onBlur={handleBlur("nom")}
-                value={values.nom}
-                keyboardType="nom"
+                onChangeText={handleChange("title")}
+                onBlur={handleBlur("title")}
+                value={values.title}
               />
             </Stack>
           </FormControl>
 
           <FormControl isRequired>
             <Stack mx="10" my="2">
-              <FormControl.Label>Objectif</FormControl.Label>
+              <FormControl.Label>Description</FormControl.Label>
               <Input
-                name="objectif"
-                placeholder="Objectif"
+                name="description"
+                placeholder="Description"
                 style={styles.textInput}
-                onChangeText={handleChange("objectif")}
-                onBlur={handleBlur("objectif")}
-                value={values.objectif}
-                keyboardType="objectif"
+                onChangeText={handleChange("description")}
+                onBlur={handleBlur("description")}
+                value={values.description}
               />
             </Stack>
           </FormControl>
 
           <FormControl isRequired>
             <Stack mx="10" my="2">
-              <FormControl.Label>Lien</FormControl.Label>
+              <FormControl.Label>Src</FormControl.Label>
               <Input
-                name="lien"
-                placeholder="Lien"
+                name="src"
+                placeholder="Src"
                 style={styles.textInput}
-                onChangeText={handleChange("lien")}
-                onBlur={handleBlur("lien")}
-                value={values.lien}
+                onChangeText={handleChange("src")}
+                onBlur={handleBlur("src")}
+                value={values.src}
               />
             </Stack>
           </FormControl>
 
           <FormControl isRequired>
             <Stack mx="10" my="2">
-              <FormControl.Label>Période</FormControl.Label>
+              <FormControl.Label>Vidéo</FormControl.Label>
               <Input
-                name="periode"
-                placeholder="Période"
+                name="video"
+                placeholder="Vidéo"
                 style={styles.textInput}
-                onChangeText={handleChange("periode")}
-                onBlur={handleBlur("periode")}
-                value={values.periode}
-                keyboardType="periode"
+                onChangeText={handleChange("video")}
+                onBlur={handleBlur("video")}
+                value={values.video}
               />
             </Stack>
           </FormControl>
@@ -91,7 +87,7 @@ export const DefiUpdateForm = ({ route, navigation }) => {
           <Center>
             <TouchableOpacity style={styles.loginBtn}>
               <Text onPress={handleSubmit} style={styles.loginText}>
-                EDIT
+                MODIFIER
               </Text>
             </TouchableOpacity>
           </Center>

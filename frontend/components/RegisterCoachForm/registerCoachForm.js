@@ -134,7 +134,12 @@ export const RegisterCoachForm = ({ navigation }) => {
           >
             <Text>Login coach</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.forgot_button}>
+          <TouchableOpacity
+            style={styles.forgot_button}
+            onPress={() => {
+              navigation.navigate("Login player");
+            }}
+          >
             <Text>Login player</Text>
           </TouchableOpacity>
 

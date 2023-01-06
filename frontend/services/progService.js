@@ -6,12 +6,10 @@ const API_URL = "http://192.168.137.1:8080/api/coach/programme/";
 const fetchProg = async () => {
   const token = await AsyncStorage.getItem("@user");
   const result = await axios.get(`${API_URL}${token}`);
-  console.log("fetched data = ", result);
   return result.data;
 };
 
 const fetchProgList = async () => {
-  const token = await AsyncStorage.getItem("@user");
   const result = await axios.get(`${API_URL}`);
   return result.data;
 };

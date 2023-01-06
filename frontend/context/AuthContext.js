@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createContext, useEffect, useState } from "react";
 import { AuthService } from "../services/coachAuth";
+import JoueurAuthService from "../services/joueurAuth.service";
 
 export const AuthContext = createContext();
 
@@ -12,6 +13,26 @@ export const AuthProvider = ({ children }) => {
 
   const login = (email, password) => {
     AuthService.login(email, password)
+      .then((e) => {
+        setSuccess(true);
+        setMsg("Authentification effectuée avec succès");
+        setTimeout(() => {
+          setUserToken(e.data.token);
+        }, 500);
+      })
+      .catch((e) => {
+        const resMessage =
+          (e.response && e.response.data && e.response.data.msg) ||
+          e.message ||
+          e.toString();
+
+        setError(true);
+        setMsg(resMessage);
+      });
+  };
+
+  const loginPlayer = (email, password) => {
+    JoueurAuthService.login(email, password)
       .then((e) => {
         setSuccess(true);
         setMsg("Authentification effectuée avec succès");
@@ -52,7 +73,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ login, logout, userToken, success, msg, error }}
+      value={{ login, loginPlayer, logout, userToken, success, msg, error }}
     >
       {children}
     </AuthContext.Provider>

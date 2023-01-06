@@ -3,7 +3,6 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import "react-native-gesture-handler";
 import { LieuCoach } from "../../screens/LieuCoach/lieuCoach";
 import AbonnementCoach from "../../screens/AbonnementCoach/AbonnementCoach";
-
 import { View } from "native-base";
 import { Button } from "react-native";
 import StatScreen from "../../screens/manageStats/statsScreen";
@@ -12,8 +11,9 @@ import { AuthContext } from "../../context/AuthContext";
 import { PlayersCoach } from "../../screens/MyAccountCoach/PlayersCoach";
 import CoachProfile from "../../screens/CoachProfile/CoachProfile";
 import { DefiCoach } from "../../screens/DefiCoach/defiCoach";
-import EventCoach from "../../screens/EventCoach/eventCoach";
-import SeanceCoach from "../../screens/SeanceCoach/SeanceCoach";
+import { ProgCoach } from "../../screens/ProgCoach/progCoach";
+import { EventCoach } from "../../screens/EventCoach/eventCoach";
+
 const Drawer = createDrawerNavigator();
 
 const Deconnexion = () => {
@@ -30,11 +30,11 @@ const Deconnexion = () => {
   );
 };
 
-export default function MainNavigator() {
+export default function CoachNavigator() {
   return (
     <Drawer.Navigator
       useLegacyImplementation
-      initialRouteName="Mes lieux"
+      initialRouteName="Mes joueurs"
       screenOptions={{
         headerStyle: { backgroundColor: "#00BFFF" },
         headerTintColor: "#fff",
@@ -44,7 +44,7 @@ export default function MainNavigator() {
       <Drawer.Screen name="Mes joueurs" component={PlayersCoach} />
       <Drawer.Screen name="Mes lieux" component={LieuCoach} />
       <Drawer.Screen name="Mon abonnement" component={AbonnementCoach} />
-      <Drawer.Screen name="Mes Séances" component={SeanceCoach} />
+      <Drawer.Screen name="Mes programmes" component={ProgCoach} />
       <Drawer.Screen name="Mes défis" component={DefiCoach} />
       <Drawer.Screen name="Mes évenements" component={EventCoach} />
       <Drawer.Screen name="Mes statistiques" component={StatScreen} />

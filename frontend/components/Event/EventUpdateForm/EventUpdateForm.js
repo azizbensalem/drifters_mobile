@@ -3,17 +3,22 @@ import { Text, TouchableOpacity } from "react-native";
 import { Formik } from "formik";
 import { styles } from "./style";
 import { FormControl, Input, Stack, Center } from "native-base";
-import defiService from "../../../services/defi.service";
 
-export const DefiForm = ({ navigation }) => {
+import eventService from "../../../services/evenement.service";
+
+export const EventUpdateForm = ({ route, navigation }) => {
+  const { data } = route.params;
   return (
     <Formik
-      initialValues={{ nom: "", objectif: "", lien: "", periode: "" }}
+      initialValues={data}
       onSubmit={(values) => {
-        defiService.postDefi(values).then((rep) => console.log(rep));
+        eventService
+          .updateEvent(values._id, values.nom, values.description, values.date)
+          .then((rep) => console.log("resp", rep))
+          .catch((e) => console.log("error", e));
         setTimeout(() => {
           navigation.goBack();
-        }, 100);
+        }, 200);
       }}
     >
       {({ handleChange, handleBlur, handleSubmit, values }) => (
@@ -23,7 +28,7 @@ export const DefiForm = ({ navigation }) => {
               <FormControl.Label>Nom</FormControl.Label>
               <Input
                 name="nom"
-                placeholder="Nom du défi"
+                placeholder="Nom du l'évenement"
                 style={styles.textInput}
                 onChangeText={handleChange("nom")}
                 onBlur={handleBlur("nom")}
@@ -35,45 +40,30 @@ export const DefiForm = ({ navigation }) => {
 
           <FormControl isRequired>
             <Stack mx="10" my="2">
-              <FormControl.Label>Objectif</FormControl.Label>
+              <FormControl.Label>Description</FormControl.Label>
               <Input
-                name="objectif"
-                placeholder="Objectif"
+                name="description"
+                placeholder="description"
                 style={styles.textInput}
-                onChangeText={handleChange("objectif")}
-                onBlur={handleBlur("objectif")}
-                value={values.objectif}
-                keyboardType="objectif"
+                onChangeText={handleChange("description")}
+                onBlur={handleBlur("description")}
+                value={values.description}
+                keyboardType="description"
               />
             </Stack>
           </FormControl>
 
           <FormControl isRequired>
             <Stack mx="10" my="2">
-              <FormControl.Label>Lien</FormControl.Label>
+              <FormControl.Label>Date</FormControl.Label>
               <Input
-                name="lien"
-                placeholder="Lien"
+                name="date"
+                placeholder="date"
                 style={styles.textInput}
-                onChangeText={handleChange("lien")}
-                onBlur={handleBlur("lien")}
-                value={values.lien}
-                keyboardType="lien"
-              />
-            </Stack>
-          </FormControl>
-
-          <FormControl isRequired>
-            <Stack mx="10" my="2">
-              <FormControl.Label>Période</FormControl.Label>
-              <Input
-                name="période"
-                placeholder="Période"
-                style={styles.textInput}
-                onChangeText={handleChange("période")}
-                onBlur={handleBlur("période")}
-                value={values.période}
-                keyboardType="période"
+                onChangeText={handleChange("date")}
+                onBlur={handleBlur("date")}
+                value={values.date}
+                type="date"
               />
             </Stack>
           </FormControl>
@@ -81,7 +71,7 @@ export const DefiForm = ({ navigation }) => {
           <Center>
             <TouchableOpacity style={styles.loginBtn}>
               <Text onPress={handleSubmit} style={styles.loginText}>
-                AJOUTER
+                EDIT
               </Text>
             </TouchableOpacity>
           </Center>

@@ -5,13 +5,13 @@ import { styles } from "./style";
 import { Alert, FormControl, Input, Stack, VStack, HStack } from "native-base";
 import { AuthContext } from "../../context/AuthContext";
 
-export const AuthCoachForm = ({ navigation }) => {
-  const { login, success, msg, error } = useContext(AuthContext);
+export const AuthPlayerForm = ({ navigation }) => {
+  const { loginPlayer, success, msg, error } = useContext(AuthContext);
   return (
     <Formik
       initialValues={{ email: "", password: "" }}
       onSubmit={(values) => {
-        login(values.email, values.password);
+        loginPlayer(values.email, values.password);
       }}
     >
       {({ handleChange, handleBlur, handleSubmit, values }) => (
@@ -81,11 +81,11 @@ export const AuthCoachForm = ({ navigation }) => {
               />
             </Stack>
           </FormControl>
+          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+            <Text style={styles.forgot_button}>Login coach</Text>
+          </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate("Register")}>
             <Text style={styles.forgot_button}>Register coach</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("Login player")}>
-            <Text style={styles.forgot_button}>Login player</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.loginBtn}>
