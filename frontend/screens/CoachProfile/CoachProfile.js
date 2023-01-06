@@ -1,16 +1,9 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ProfileUpdateForm } from "../../components/ProfileUpdateForm/ProfileUpdateForm";
-import { AuthService } from "../../services/coachAuth";
+import { AuthContext } from "../../context/AuthContext";
 
 export default function CoachProfile({ navigation }) {
-  const [data, setData] = useState("");
-
-  useEffect(() => {
-    AuthService.getCurrentUser()
-      .then((e) => setData(e))
-      .catch((e) => console.log(e));
-  }, [data]);
+  const { data } = useContext(AuthContext);
 
   return <ProfileUpdateForm user={data} />;
 }

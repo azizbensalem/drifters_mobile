@@ -129,13 +129,11 @@ exports.showProfile = (req, res) => {
     User.findOne({ _id: decoded.user_id })
       .then((data) =>
         res.json({
-          // id: data.id,
           nom: data.nom,
           prenom: data.prenom,
           email: data.email,
           dateDeNaissance: data.dateDeNaissance,
           abonnement: data.abonnement,
-          photoDeProfil: data.photoDeProfil,
         })
       )
       .catch((err) => {
@@ -204,11 +202,9 @@ exports.editProfile = (req, res) => {
       { _id: decoded.user_id },
       {
         $set: {
-          email: req.body.email,
           nom: req.body.nom,
           prenom: req.body.prenom,
           dateDeNaissance: req.body.dateDeNaissance,
-          photoDeProfil: req.body.photoDeProfil,
         },
       },
       { useFindAndModify: false }

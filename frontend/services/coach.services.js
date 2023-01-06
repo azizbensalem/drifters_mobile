@@ -4,13 +4,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const API_URL = "http://192.168.137.1:8080/api/coach/";
 
-const updateCoach = async (nom, prenom, dateDeNaissance, photoDeProfil) => {
+const updateCoach = async (nom, prenom, dateDeNaissance) => {
   const token = await AsyncStorage.getItem("@user");
   const result = await axios.put(`${API_URL}profile/edit/${token}`, {
     nom,
     prenom,
     dateDeNaissance,
-    photoDeProfil,
   });
   return result.data;
 };
