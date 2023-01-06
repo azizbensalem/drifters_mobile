@@ -2,7 +2,7 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // import JwtDecode from "jwt-decode";
 
-const API_URL = "http://192.168.137.1:8080/api/coach/";
+const API_URL = "http://192.168.70.210:8080/api/coach/";
 
 const updateCoach = async (nom, prenom, dateDeNaissance, photoDeProfil) => {
   const token = await AsyncStorage.getItem("@user");

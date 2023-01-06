@@ -1,7 +1,7 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const url = "http://192.168.137.1:8080/api/competence/";
+const url = "http://192.168.70.210:8080/api/competence/";
 
 export const addCompetence = async (competence) => {
   const token = await AsyncStorage.getItem("@user");

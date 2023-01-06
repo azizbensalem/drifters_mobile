@@ -5,6 +5,7 @@ module.exports = (app) => {
   router.post("/coach/evenement/:token", evenement.create);
   router.get("/coach/evenement/:id/:token", evenement.find);
   router.get("/coach/evenement/:token", evenement.findAll);
+  router.get("/joueur/evenement/", evenement.findAllPublic);
   router.get("/joueur/evenement/:id", evenement.findOneEventPlayer);
   router.get("/joueur/evenement", evenement.findAllEventPlayer);
   router.put("/joueur/participer/:id/:token", evenement.eventParticipate);

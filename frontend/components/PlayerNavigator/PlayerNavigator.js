@@ -4,7 +4,9 @@ import "react-native-gesture-handler";
 import { View } from "native-base";
 import { Button } from "react-native";
 import { AuthContext } from "../../context/AuthContext";
+import { SeanceJoueur } from "../../screens/SeanceAujourdhui/seanceJoueur";
 
+import { EventJoueur } from "../../screens/EventJoueur/eventJoueur";
 const Drawer = createDrawerNavigator();
 
 const Deconnexion = () => {
@@ -31,6 +33,8 @@ export default function PlayerNavigator() {
         headerTintColor: "#fff",
       }}
     >
+        <Drawer.Screen name="Les Évenements" component={EventJoueur} />
+        <Drawer.Screen name="Seance Aujourdhui" component={SeanceJoueur} />
       <Drawer.Screen name="Deconnexion" component={Deconnexion} />
     </Drawer.Navigator>
   );
