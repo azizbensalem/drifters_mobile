@@ -39,7 +39,7 @@ export default function ListSeanceScreen({ navigation }) {
 
   const deleteRow = (rowMap, rowKey) => {
     closeRow(rowMap, rowKey);
-    SeanceService.annulerSeance(rowKey);
+    SeanceService.annulerSeance(rowKey, true, "Rien");
   };
 
   const renderHiddenItem = (data, rowMap) => {
@@ -98,7 +98,7 @@ export default function ListSeanceScreen({ navigation }) {
     <Box>
       <Pressable
         onPress={() =>
-          navigation.navigate("Afficher une Séance", { data: item })
+          navigation.navigate("Afficher une séance", { data: item })
         }
         _dark={{
           bg: "coolGray.800",
@@ -147,7 +147,7 @@ export default function ListSeanceScreen({ navigation }) {
               }}
               alignSelf="flex-start"
             >
-              {item.objectif}
+              {item.annuler ? "Annulée" : "Programmée"}
             </Text>
           </HStack>
         </Box>
@@ -208,17 +208,6 @@ export default function ListSeanceScreen({ navigation }) {
                 previewOpenDelay={3000}
                 onRowDidOpen={onRowDidOpen}
               />
-              <SwipeListView
-                data={searchValue}
-                renderItem={renderItem}
-                renderHiddenItem={renderHiddenItem}
-                rightOpenValue={-130}
-                previewRowKey={"0"}
-                previewOpenValue={-40}
-                previewOpenDelay={3000}
-                onRowDidOpen={onRowDidOpen}
-              />
-
               <Fab
                 onPress={() => navigation.navigate("Ajout d'une séance")}
                 shadow={2}

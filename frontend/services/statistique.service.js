@@ -1,7 +1,7 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const url = "http://192.168.1.17:8080/api/statistique/";
+const url = "http://192.168.0.46:8080/api/statistique/";
 
 export const addNewStatistique = async (statistique) => {
   const token = await AsyncStorage.getItem("@user");

@@ -16,8 +16,8 @@ export const SeanceCoach = () => {
         options={{ headerShown: false }}
       />
       <Stack.Screen name="Ajout d'une séance" component={SeanceCoachAdd} />
-      <Stack.Screen name="Afficher une séance" component={SeanceCoachShow} />
       <Stack.Screen name="Modifier une séance" component={SeanceCoachUpdate} />
+      <Stack.Screen name="Afficher une séance" component={SeanceCoachShow} />
     </Stack.Navigator>
   );
 };
