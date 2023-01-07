@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Dimensions, TouchableOpacity, View } from "react-native";
+import React, { useState } from 'react';
+import { Dimensions, TouchableOpacity, View } from 'react-native';
 import {
   NativeBaseProvider,
   Box,
@@ -13,29 +13,27 @@ import {
   VStack,
   FormControl,
   Center,
-} from "native-base";
-import { SwipeListView } from "react-native-swipe-list-view";
-import { MaterialIcons, Ionicons, Entypo } from "@expo/vector-icons";
-import { ScrollView } from "react-native-gesture-handler";
+} from 'native-base';
+import CoachService from '../../services/coach.services';
 
 export default function InvitePlayer() {
-  const [mode, setMode] = useState("Basic");
+  const [mode, setMode] = useState('Basic');
   return (
     <NativeBaseProvider>
-      <Center h="100%">
+      <Center h='100%'>
         <Box
           _dark={{
-            bg: "coolGray.800",
+            bg: 'coolGray.800',
           }}
           _light={{
-            bg: "white",
+            bg: 'white',
           }}
-          flex="1"
+          flex='1'
           safeAreaTop
-          maxW="400px"
-          w="100%"
+          maxW='400px'
+          w='100%'
         >
-          <Heading p="4" pb="3" size="lg">
+          <Heading p='4' pb='3' size='lg'>
             Inviter un joueur
           </Heading>
           <InvitationForm />
@@ -50,23 +48,34 @@ function InvitationForm() {
 
   const validate = () => {
     if (formData.name === undefined) {
-      setErrors({ ...errors, name: "Name is required" });
+      setErrors({ ...errors, name: 'Le nom est requis' });
       return false;
     } else if (formData.name.length < 3) {
-      setErrors({ ...errors, name: "Name is too short" });
+      setErrors({ ...errors, name: 'Le nom est trop court' });
+      return false;
+    } else if (formData.surName.length < 3) {
+      setErrors({ ...errors, name: 'Le prenom est trop court' });
       return false;
     }
-
     return true;
   };
 
   const onSubmit = () => {
-    validate() ? console.log("Submitted") : console.log("Validation Failed");
+    validate()
+      ? CoachService.sendInvite({
+          nom: formData.name,
+          prenom: formData.surName,
+          email: formData.email,
+          telephone: formData.phone,
+        })
+          .then((rep) => console.log('resp', rep))
+          .catch((e) => console.log('error', e))
+      : console.log('Validation Failed');
   };
 
   return (
-    <VStack width="90%" mx="3" maxW="300px">
-      <FormControl isRequired isInvalid={"name" in errors}>
+    <VStack width='90%' mx='3' maxW='300px'>
+      <FormControl isRequired isInvalid={'name' in errors}>
         <FormControl.Label
           _text={{
             bold: true,
@@ -75,10 +84,10 @@ function InvitationForm() {
           Nom
         </FormControl.Label>
         <Input
-          placeholder="kowalski"
+          placeholder='kowalski'
           onChangeText={(value) => setData({ ...formData, name: value })}
         />
-        {"name" in errors ? (
+        {'name' in errors ? (
           <FormControl.ErrorMessage>Error</FormControl.ErrorMessage>
         ) : (
           <FormControl.HelperText>
@@ -87,7 +96,7 @@ function InvitationForm() {
         )}
       </FormControl>
 
-      <FormControl isRequired isInvalid={"name" in errors}>
+      <FormControl isRequired isInvalid={'surName' in errors}>
         <FormControl.Label
           _text={{
             bold: true,
@@ -96,10 +105,10 @@ function InvitationForm() {
           Prenom
         </FormControl.Label>
         <Input
-          placeholder="John"
-          onChangeText={(value) => setData({ ...formData, name: value })}
+          placeholder='John'
+          onChangeText={(value) => setData({ ...formData, surName: value })}
         />
-        {"name" in errors ? (
+        {'name' in errors ? (
           <FormControl.ErrorMessage>Error</FormControl.ErrorMessage>
         ) : (
           <FormControl.HelperText>
@@ -108,7 +117,7 @@ function InvitationForm() {
         )}
       </FormControl>
 
-      <FormControl isRequired isInvalid={"name" in errors}>
+      <FormControl isRequired isInvalid={'name' in errors}>
         <FormControl.Label
           _text={{
             bold: true,
@@ -117,12 +126,12 @@ function InvitationForm() {
           Email
         </FormControl.Label>
         <Input
-          placeholder="John"
+          placeholder='John'
           onChangeText={(value) => setData({ ...formData, email: value })}
         />
       </FormControl>
 
-      <FormControl isRequired isInvalid={"name" in errors}>
+      <FormControl isRequired isInvalid={'name' in errors}>
         <FormControl.Label
           _text={{
             bold: true,
@@ -131,11 +140,11 @@ function InvitationForm() {
           Telephone
         </FormControl.Label>
         <Input
-          placeholder="John"
+          placeholder='John'
           onChangeText={(value) => setData({ ...formData, phone: value })}
         />
       </FormControl>
-      <Button onPress={onSubmit} mt="5" colorScheme="cyan">
+      <Button onPress={onSubmit} mt='5' colorScheme='cyan'>
         Inviter
       </Button>
     </VStack>

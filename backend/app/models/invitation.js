@@ -1,10 +1,10 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const invitationSchema = new mongoose.Schema(
   {
     coach: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      ref: 'User',
     },
     nom: {
       type: String,
@@ -16,7 +16,7 @@ const invitationSchema = new mongoose.Schema(
     },
     email: {
       type: String,
-      required: [true, "Email is required"],
+      required: [true, 'Email is required'],
       match: [/.+\@.+\..+/, 'Email must be valid "example@example.com" '],
     },
     telephone: {
@@ -24,7 +24,7 @@ const invitationSchema = new mongoose.Schema(
       required: true,
       validate: {
         validator: function (val) {
-          return val.toString().length >= 10 && val.toString().length <= 14;
+          return val.toString().length >= 8 && val.toString().length <= 14;
         },
         message: `Phone number must be valid`,
       },
@@ -38,4 +38,4 @@ const invitationSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("Invitation", invitationSchema);
+module.exports = mongoose.model('Invitation', invitationSchema);

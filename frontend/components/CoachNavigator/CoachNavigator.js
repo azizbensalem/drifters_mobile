@@ -53,7 +53,7 @@ export default function CoachNavigator() {
         <Drawer.Screen name="Mes Séances" component={SeanceCoach} />
       <Drawer.Screen name='Mes competences' component={CompetenceScreen} />
       <Drawer.Screen name='Mes statistiques' component={Statistic} />
-      <Drawer.Screen name='Invité joueur' component={InvitePlayer} />
+      <Drawer.Screen name='Inviter joueur' component={InvitePlayer} />
       <Drawer.Screen name='Deconnexion' component={Deconnexion} />
 
     </Drawer.Navigator>

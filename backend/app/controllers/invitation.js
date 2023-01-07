@@ -1,8 +1,8 @@
-const Invitation = require("../models/invitation");
-const User = require("../models/user");
-const jwt = require("jsonwebtoken");
-const sendEmail = require("../sendEmail");
-const jwt_decode = require("jwt-decode");
+const Invitation = require('../models/invitation');
+const User = require('../models/user');
+const jwt = require('jsonwebtoken');
+const sendEmail = require('../sendEmail');
+const jwt_decode = require('jwt-decode');
 
 exports.inviterJoueur = async (req, res) => {
   var response = {};
@@ -11,7 +11,7 @@ exports.inviterJoueur = async (req, res) => {
     var decoded = jwt_decode(token);
   } catch (error) {
     res.send({
-      message: "Invalid token format",
+      message: 'Invalid token format',
     });
     return true;
   }
@@ -19,7 +19,7 @@ exports.inviterJoueur = async (req, res) => {
 
   if (!(email && nom && prenom && telephone)) {
     response.code = 1;
-    response.msg = "All input is required";
+    response.msg = 'All inputs are required';
     res.send(response);
   } else {
     const oldUser = await User.findOne({ email });
@@ -42,7 +42,7 @@ exports.inviterJoueur = async (req, res) => {
           coach_id: decoded.user_id,
         },
         process.env.TOKEN_KEY,
-        { expiresIn: "2h" }
+        { expiresIn: '2h' }
       );
 
       invitation.token = token;
@@ -50,7 +50,7 @@ exports.inviterJoueur = async (req, res) => {
       await invitation.save();
 
       response.code = 0;
-      response.msg = "Invitation created!";
+      response.msg = 'Invitation created!';
       response.data = {
         id: invitation.id,
         email: invitation.email,
@@ -62,14 +62,14 @@ exports.inviterJoueur = async (req, res) => {
       res.send(response);
       sendEmail(
         invitation.email,
-        "Invitation",
+        'Invitation',
         `Invitation Joueur:
           
           http://localhost:3000/joueur/register/${invitation.token}`
       );
     } else {
       response.code = 2;
-      response.msg = "Account already exist";
+      response.msg = 'Account already exist';
       res.send(response);
     }
   }

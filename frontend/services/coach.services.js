@@ -7,8 +7,8 @@ const API_URL = 'http://192.168.1.157:8080/api/coach/';
 
 
 const updateCoach = async (nom, prenom, dateDeNaissance) => {
-  const token = await AsyncStorage.getItem("@user");
-  
+  const token = await AsyncStorage.getItem('@user');
+
   const result = await axios.put(`${API_URL}profile/edit/${token}`, {
     nom,
     prenom,
@@ -77,6 +77,17 @@ const updatePlayer = async (
   return result.data;
 };
 
+const sendInvite = async ({ email, nom, prenom, telephone }) => {
+  const token = await AsyncStorage.getItem('@user');
+  const result = await axios.post(`${API_URL}inviter/joueur/${token}`, {
+    email,
+    nom,
+    prenom,
+    telephone,
+  });
+  return result.data;
+};
+
 const deletePlayer = async (id) => {
   const token = await AsyncStorage.getItem('@user');
   const result = await axios.delete(`${API_URL}deletePlayer/${id}/${token}`);
@@ -90,6 +101,7 @@ const CoachService = {
   firstLogin,
   updatePlayer,
   deletePlayer,
+  sendInvite,
 };
 
 export default CoachService;
