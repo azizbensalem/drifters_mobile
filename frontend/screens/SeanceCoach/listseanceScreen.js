@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import { Searchbar } from 'react-native-paper';
 //import SearchBar from 'react-native-platform-searchbar';
 import {
@@ -17,21 +17,18 @@ import {
   View,
   FlatList,
   TextInput,
-} from "native-base";
-import { SwipeListView } from "react-native-swipe-list-view";
-import SearchInput from 'react-native-search-filter';
-import { ScrollView } from "react-native-gesture-handler";
-import SeanceService from "../../services/seance.service";
-import { AntDesign, Entypo, MaterialIcons } from "@expo/vector-icons";
+} from 'native-base';
+import { SwipeListView } from 'react-native-swipe-list-view';
+import { ScrollView } from 'react-native-gesture-handler';
+import SeanceService from '../../services/seance.service';
+import { AntDesign, Entypo, MaterialIcons } from '@expo/vector-icons';
 
 export default function ListSeanceScreen({ navigation }) {
-  
   const [Seance, setSeance] = useState([]);
 
-  const [listData, setListData] = useState("");
+  const [listData, setListData] = useState('');
 
-
-  const [searchValue, setSearchValue] = useState("");
+  const [searchValue, setSearchValue] = useState('');
 
   const closeRow = (rowMap, rowKey) => {
     if (rowMap[rowKey]) {
@@ -45,44 +42,42 @@ export default function ListSeanceScreen({ navigation }) {
   };
 
   const renderHiddenItem = (data, rowMap) => {
-    return (
-      <HStack flex="1" pl="2">
-        
-      </HStack>
-    );
+    return <HStack flex='1' pl='2'></HStack>;
   };
 
   const onRowDidOpen = (rowKey) => {
-    console.log("This row opened", rowKey);
+    console.log('This row opened', rowKey);
   };
 
   const renderItem = ({ item, index }) => (
     <Box>
       <Pressable
-        onPress={() => navigation.navigate("Afficher une Séance", { data: item })}
+        onPress={() =>
+          navigation.navigate('Afficher une Séance', { data: item })
+        }
         _dark={{
-          bg: "coolGray.800",
+          bg: 'coolGray.800',
         }}
         _light={{
-          bg: "white",
+          bg: 'white',
         }}
       >
-        <Box pl="4" pr="5" py="2">
-        <HStack alignItems="center" space={3}>
+        <Box pl='4' pr='5' py='2'>
+          <HStack alignItems='center' space={3}>
             <VStack>
               <Text
-                color="coolGray.800"
+                color='coolGray.800'
                 _dark={{
-                  color: "warmGray.50",
+                  color: 'warmGray.50',
                 }}
                 bold
               >
                 {item.nom}
               </Text>
               <Text
-                color="coolGray.600"
+                color='coolGray.600'
                 _dark={{
-                  color: "warmGray.200",
+                  color: 'warmGray.200',
                 }}
               >
                 {item.periode}
@@ -90,22 +85,22 @@ export default function ListSeanceScreen({ navigation }) {
             </VStack>
             <Spacer />
             <Text
-              fontSize="xs"
-              color="coolGray.800"
+              fontSize='xs'
+              color='coolGray.800'
               _dark={{
-                color: "warmGray.50",
+                color: 'warmGray.50',
               }}
-              alignSelf="flex-start"
+              alignSelf='flex-start'
             >
               {item.date}
             </Text>
             <Text
-              fontSize="xs"
-              color="coolGray.800"
+              fontSize='xs'
+              color='coolGray.800'
               _dark={{
-                color: "warmGray.50",
+                color: 'warmGray.50',
               }}
-              alignSelf="flex-start"
+              alignSelf='flex-start'
             >
               {item.objectif}
             </Text>
@@ -119,11 +114,10 @@ export default function ListSeanceScreen({ navigation }) {
     const fetchData = async () => {
       await SeanceService.fetchSeance()
         .then((result) => setListData(result))
-        .catch((e) => console.log("error", e));
+        .catch((e) => console.log('error', e));
     };
     fetchData();
   }, [listData]);
-
 
   useEffect(() => {
     let didCancel = false;
@@ -138,53 +132,51 @@ export default function ListSeanceScreen({ navigation }) {
       didCancel = true;
     };
   }, [searchValue]);
-  
+
   return (
     <NativeBaseProvider>
-      <Center h="100%">
+      <Center h='100%'>
         <Box
           _dark={{
-            bg: "coolGray.800",
+            bg: 'coolGray.800',
           }}
           _light={{
-            bg: "white",
+            bg: 'white',
           }}
-          flex="1"
+          flex='1'
           safeAreaTop
-          maxW="400px"
-          w="100%"
+          maxW='400px'
+          w='100%'
         >
-     
-      
-          <Heading p="4" pb="3" size="lg">
+          <Heading p='4' pb='3' size='lg'>
             Liste des Séances
           </Heading>
           <ScrollView showsVerticalScrollIndicator={false}>
-            <Box bg="white" safeArea flex="1">
-            <Searchbar
-          placeholder=" Chercher ici"
-          enterButton="Search"
-          size="large"
-          className="seancesearch"
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
-          />
+            <Box bg='white' safeArea flex='1'>
+              <Searchbar
+                placeholder=' Chercher ici'
+                enterButton='Search'
+                size='large'
+                className='seancesearch'
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
+              />
               <SwipeListView
                 data={listData}
                 renderItem={renderItem}
                 renderHiddenItem={renderHiddenItem}
                 rightOpenValue={-130}
-                previewRowKey={"0"}
+                previewRowKey={'0'}
                 previewOpenValue={-40}
                 previewOpenDelay={3000}
                 onRowDidOpen={onRowDidOpen}
               />
-               <SwipeListView
+              <SwipeListView
                 data={searchValue}
                 renderItem={renderItem}
                 renderHiddenItem={renderHiddenItem}
                 rightOpenValue={-130}
-                previewRowKey={"0"}
+                previewRowKey={'0'}
                 previewOpenValue={-40}
                 previewOpenDelay={3000}
                 onRowDidOpen={onRowDidOpen}
@@ -193,11 +185,11 @@ export default function ListSeanceScreen({ navigation }) {
               <Fab
                 onPress={() => navigation.navigate("Ajout d'une séance")}
                 shadow={2}
-                size="md"
-                placement="bottom-right"
-                bg="#00BFFF"
+                size='md'
+                placement='bottom-right'
+                bg='#00BFFF'
                 icon={
-                  <Icon color="white" as={AntDesign} name="plus" size="sm" />
+                  <Icon color='white' as={AntDesign} name='plus' size='sm' />
                 }
               />
             </Box>
