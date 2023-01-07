@@ -1,13 +1,11 @@
-import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 // import JwtDecode from "jwt-decode";
 
-
-const API_URL = 'http://192.168.1.157:8080/api/coach/';
-
+const API_URL = "http://192.168.1.17:8080/api/coach/";
 
 const updateCoach = async (nom, prenom, dateDeNaissance) => {
-  const token = await AsyncStorage.getItem('@user');
+  const token = await AsyncStorage.getItem("@user");
 
   const result = await axios.put(`${API_URL}profile/edit/${token}`, {
     nom,
@@ -18,7 +16,7 @@ const updateCoach = async (nom, prenom, dateDeNaissance) => {
 };
 
 const updateAbonnement = async (abonnement) => {
-  const token = await AsyncStorage.getItem('@user');
+  const token = await AsyncStorage.getItem("@user");
   const result = await axios.put(`${API_URL}payement/${token}`, {
     abonnement,
   });
@@ -34,7 +32,7 @@ const firstLogin = async (accessToken, discipline) => {
 };
 
 const fetchJoueurs = async () => {
-  const token = await AsyncStorage.getItem('@user');
+  const token = await AsyncStorage.getItem("@user");
   const result = await axios.get(`${API_URL}playerslist/${token}`);
   return result.data;
 };
@@ -56,7 +54,7 @@ const updatePlayer = async (
   etat,
   typeEtablissement
 ) => {
-  const token = await AsyncStorage.getItem('@user');
+  const token = await AsyncStorage.getItem("@user");
   const result = await axios.put(`${API_URL}editPlayer/${id}/${token}`, {
     id,
     nom,
@@ -78,7 +76,7 @@ const updatePlayer = async (
 };
 
 const sendInvite = async ({ email, nom, prenom, telephone }) => {
-  const token = await AsyncStorage.getItem('@user');
+  const token = await AsyncStorage.getItem("@user");
   const result = await axios.post(`${API_URL}inviter/joueur/${token}`, {
     email,
     nom,
@@ -89,7 +87,7 @@ const sendInvite = async ({ email, nom, prenom, telephone }) => {
 };
 
 const deletePlayer = async (id) => {
-  const token = await AsyncStorage.getItem('@user');
+  const token = await AsyncStorage.getItem("@user");
   const result = await axios.delete(`${API_URL}deletePlayer/${id}/${token}`);
   return result.data;
 };
