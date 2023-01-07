@@ -14,6 +14,7 @@ import { ProgCoach } from '../../screens/ProgCoach/progCoach';
 import { EventCoach } from '../../screens/EventCoach/eventCoach';
 import CompetenceScreen from '../../screens/manageCompetences/CompetenceScreen';
 import { Statistic } from '../../screens/Statistics/statistic';
+import { SeanceCoach } from "../../screens/SeanceCoach/seanceCoach";
 
 const Drawer = createDrawerNavigator();
 
@@ -41,6 +42,7 @@ export default function CoachNavigator() {
         headerTintColor: '#fff',
       }}
     >
+
       <Drawer.Screen name='Mon compte' component={CoachProfile} />
       <Drawer.Screen name='Mes joueurs' component={PlayersCoach} />
       <Drawer.Screen name='Mes lieux' component={LieuCoach} />
@@ -48,10 +50,12 @@ export default function CoachNavigator() {
       <Drawer.Screen name='Mes programmes' component={ProgCoach} />
       <Drawer.Screen name='Mes défis' component={DefiCoach} />
       <Drawer.Screen name='Mes évenements' component={EventCoach} />
+        <Drawer.Screen name="Mes Séances" component={SeanceCoach} />
       <Drawer.Screen name='Mes competences' component={CompetenceScreen} />
       <Drawer.Screen name='Mes statistiques' component={Statistic} />
       <Drawer.Screen name='Invité joueur' component={InvitePlayer} />
       <Drawer.Screen name='Deconnexion' component={Deconnexion} />
+
     </Drawer.Navigator>
   );
 }

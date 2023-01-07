@@ -3,6 +3,7 @@ import axios from 'axios';
 
 const url = 'http://192.168.1.157:8080/api/competence/';
 
+
 export const addCompetence = async (competence) => {
   AsyncStorage.getItem('@user').then(async (token) => {
     const result = await axios.post(url + token, competence);

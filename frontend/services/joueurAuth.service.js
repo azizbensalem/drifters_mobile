@@ -1,7 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
-const API_URL = 'http://192.168.1.157:8080/api/joueur/';
+
+const API_URL = "http://192.168.70.210:8080/api/joueur/";
 
 const register = (
   nom,
