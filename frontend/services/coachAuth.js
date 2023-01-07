@@ -1,6 +1,6 @@
-import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import JwtDecode from "jwt-decode";
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import JwtDecode from 'jwt-decode';
 
 const API_URL = "http://192.168.70.210:8080/api/coach/";
 
@@ -22,8 +22,8 @@ const register = (
       photoDeProfil,
     })
     .then((response) => {
-      if (typeof response.data.data !== "undefined") {
-        AsyncStorage.setItem("@user", response.data.data.token);
+      if (typeof response.data.data !== 'undefined') {
+        AsyncStorage.setItem('@user', response.data.data.token);
       }
       return response.data;
     });
@@ -35,33 +35,35 @@ const login = (email, password) =>
       password,
     })
     .then((response) => {
-      if (typeof response.data.data !== "undefined") {
-        AsyncStorage.setItem("@user", response.data.data.token);
+      console.log('>>>>>>>>>>', response);
+      if (typeof response.data.data !== 'undefined') {
+        console.log('>>>>>', response.data);
+        AsyncStorage.setItem('@user', response.data.data.token);
       }
       return response.data;
     });
 
 const logout = () => {
-  AsyncStorage.removeItem("@user");
+  AsyncStorage.removeItem('@user');
 };
 
 const getCurrentUser = async () => {
-  const token = await AsyncStorage.getItem("@user");
+  const token = await AsyncStorage.getItem('@user');
   const result = await axios.get(`${API_URL}profile/${token}`);
   return result.data;
 };
 
 const authVerify = () => {
-  AsyncStorage.getItem("@user").then((user) => {
+  AsyncStorage.getItem('@user').then((user) => {
     if (user) {
       if (JwtDecode(user).exp * 1000 < Date.now()) {
         localStorage.clear();
         return 0;
       }
-      if (JwtDecode(user).role === "Coach") {
+      if (JwtDecode(user).role === 'Coach') {
         return 1;
       }
-      if (JwtDecode(user).role === "Joueur") {
+      if (JwtDecode(user).role === 'Joueur') {
         return 2;
       }
     }

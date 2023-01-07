@@ -1,4 +1,4 @@
-import axios from "axios";
+iimport axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const API_URL = "http://192.168.70.210:8080/api/coach/seance/";
@@ -15,7 +15,6 @@ const fetchSeance = async () => {
   const result = await axios.get(`${API_URL}${token}`);
   return result.data;
 };
-
 
 const postSeance = async (seance) => {
   AsyncStorage.getItem("@user").then(async (token) => {
@@ -64,3 +63,4 @@ const SeanceService = {
 }
 
 export default SeanceService;
+

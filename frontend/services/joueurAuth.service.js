@@ -1,5 +1,6 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from "axios";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+
 
 const API_URL = "http://192.168.70.210:8080/api/joueur/";
 
@@ -32,10 +33,10 @@ const register = (
       telephone,
     })
     .then((response) => {
-      if (typeof response.data.data !== "undefined") {
-        AsyncStorage.setItem("@user", response.data.data.token);
+      if (typeof response.data.data !== 'undefined') {
+        AsyncStorage.setItem('@user', response.data.data.token);
       }
-      console.log("token: ", token);
+      console.log('token: ', token);
       return response.data;
     });
 
@@ -46,18 +47,18 @@ const login = (email, password) =>
       password,
     })
     .then((response) => {
-      if (typeof response.data.data !== "undefined") {
-        AsyncStorage.setItem("@user", response.data.data.token);
+      if (typeof response.data.data !== 'undefined') {
+        AsyncStorage.setItem('@user', response.data.data.token);
       }
       return response.data;
     });
 
 const logout = () => {
-  AsyncStorage.removeItem("@user");
+  AsyncStorage.removeItem('@user');
 };
 
 const getCurrentUser = async () => {
-  const token = AsyncStorage.setItem("@user", response.data.data.token);
+  const token = AsyncStorage.setItem('@user', response.data.data.token);
   console.log(token);
   const result = await axios.get(`${API_URL}profile/${token}`);
   return result.data;
@@ -78,7 +79,7 @@ const updateProfile = async (
   etat,
   typeEtablissement
 ) => {
-  const token = AsyncStorage.setItem("@user", response.data.data.token);
+  const token = AsyncStorage.setItem('@user', response.data.data.token);
 
   const result = await axios.put(`${API_URL}/profile/edit/${token}`, {
     nom,

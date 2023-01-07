@@ -20,4 +20,20 @@ export const abonnementStyles = StyleSheet.create({
     opacity: 0.6,
     color: "#000000",
   },
+
+  loginBtn: {
+    width: 200,
+    borderRadius: 25,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 40,
+    backgroundColor: "#00BFFF",
+    color: "#FFFFFF",
+    marginLeft: 70,
+  },
+
+  loginText: {
+    color: "#FFFFFF",
+  },
 });
