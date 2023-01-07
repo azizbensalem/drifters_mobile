@@ -2,7 +2,7 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const API_URL = "http://192.168.1.17:8080/api/coach/evenement/";
-const API_URL_Player = "http://127.0.0.1:8080/api/joueur/evenement/";
+const API_URL_Player = "http://192.168.1.17:8080/api/joueur/evenement/";
 
 const fetchEvent = async () => {
   const token = await AsyncStorage.getItem("@user");

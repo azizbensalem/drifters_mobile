@@ -1,8 +1,8 @@
-import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const API_URL = 'http://192.168.70.210:8080/api/coach/seance/';
-const API_URL_Player = 'http://192.168.70.210:8080/api/joueur/seance/';
+const API_URL = "http://192.168.1.17:8080/api/coach/seance/";
+const API_URL_Player = "http://192.168.1.17:8080/api/joueur/seance/";
 
 function delay(ms) {
   return new Promise((resolve) => {
@@ -11,20 +11,20 @@ function delay(ms) {
 }
 
 const fetchSeance = async () => {
-  const token = await AsyncStorage.getItem('@user');
+  const token = await AsyncStorage.getItem("@user");
   const result = await axios.get(`${API_URL}${token}`);
   return result.data;
 };
 
 const postSeance = async (seance) => {
-  AsyncStorage.getItem('@user').then(async (token) => {
+  AsyncStorage.getItem("@user").then(async (token) => {
     const result = await axios.post(API_URL + token, seance);
     return result.data;
   });
 };
 
 const fetchSeances = async (searchValue) => {
-  const token = await AsyncStorage.getItem('@user');
+  const token = await AsyncStorage.getItem("@user");
   const results = await axios.get(`${API_URL}${token}`);
   return results.data.filter((seance) => seance.periode.includes(searchValue));
 };

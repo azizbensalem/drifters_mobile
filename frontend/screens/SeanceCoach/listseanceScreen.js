@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Searchbar } from 'react-native-paper';
+import { Searchbar } from "react-native-paper";
 //import SearchBar from 'react-native-platform-searchbar';
 import {
   Box,
@@ -19,17 +19,15 @@ import {
   TextInput,
 } from "native-base";
 import { SwipeListView } from "react-native-swipe-list-view";
-import SearchInput from 'react-native-search-filter';
+import SearchInput from "react-native-search-filter";
 import { ScrollView } from "react-native-gesture-handler";
 import SeanceService from "../../services/seance.service";
 import { AntDesign, Entypo, MaterialIcons } from "@expo/vector-icons";
 
 export default function ListSeanceScreen({ navigation }) {
-  
   const [Seance, setSeance] = useState([]);
 
   const [listData, setListData] = useState("");
-
 
   const [searchValue, setSearchValue] = useState("");
 
@@ -41,13 +39,53 @@ export default function ListSeanceScreen({ navigation }) {
 
   const deleteRow = (rowMap, rowKey) => {
     closeRow(rowMap, rowKey);
-    EventService.deleteEvent(rowKey);
+    SeanceService.annulerSeance(rowKey);
   };
 
   const renderHiddenItem = (data, rowMap) => {
     return (
       <HStack flex="1" pl="2">
-        
+        <Pressable
+          w="70"
+          ml="auto"
+          cursor="pointer"
+          bg="success.700"
+          justifyContent="center"
+          onPress={() =>
+            navigation.navigate("Modifier une séance", { data: data.item })
+          }
+          _pressed={{
+            opacity: 0.5,
+          }}
+        >
+          <VStack alignItems="center" space={2}>
+            <Icon as={<Entypo name="edit" />} size="xs" color="white" />
+            <Text fontSize="xs" fontWeight="medium" color="white">
+              Modifier
+            </Text>
+          </VStack>
+        </Pressable>
+        <Pressable
+          w="70"
+          cursor="pointer"
+          bg="red.500"
+          justifyContent="center"
+          onPress={() => deleteRow(rowMap, data.item._id)}
+          _pressed={{
+            opacity: 0.5,
+          }}
+        >
+          <VStack alignItems="center" space={2}>
+            <Icon
+              as={<MaterialIcons name="delete" />}
+              color="white"
+              size="xs"
+            />
+            <Text color="white" fontSize="xs" fontWeight="medium">
+              Annuler
+            </Text>
+          </VStack>
+        </Pressable>
       </HStack>
     );
   };
@@ -59,7 +97,9 @@ export default function ListSeanceScreen({ navigation }) {
   const renderItem = ({ item, index }) => (
     <Box>
       <Pressable
-        onPress={() => navigation.navigate("Afficher une Séance", { data: item })}
+        onPress={() =>
+          navigation.navigate("Afficher une Séance", { data: item })
+        }
         _dark={{
           bg: "coolGray.800",
         }}
@@ -68,7 +108,7 @@ export default function ListSeanceScreen({ navigation }) {
         }}
       >
         <Box pl="4" pr="5" py="2">
-        <HStack alignItems="center" space={3}>
+          <HStack alignItems="center" space={3}>
             <VStack>
               <Text
                 color="coolGray.800"
@@ -124,7 +164,6 @@ export default function ListSeanceScreen({ navigation }) {
     fetchData();
   }, [listData]);
 
-
   useEffect(() => {
     let didCancel = false;
     const fetchData = async () => {
@@ -138,7 +177,7 @@ export default function ListSeanceScreen({ navigation }) {
       didCancel = true;
     };
   }, [searchValue]);
-  
+
   return (
     <NativeBaseProvider>
       <Center h="100%">
@@ -154,21 +193,11 @@ export default function ListSeanceScreen({ navigation }) {
           maxW="400px"
           w="100%"
         >
-     
-      
           <Heading p="4" pb="3" size="lg">
             Liste des Séances
           </Heading>
           <ScrollView showsVerticalScrollIndicator={false}>
             <Box bg="white" safeArea flex="1">
-            <Searchbar
-          placeholder=" Chercher ici"
-          enterButton="Search"
-          size="large"
-          className="seancesearch"
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
-          />
               <SwipeListView
                 data={listData}
                 renderItem={renderItem}
@@ -179,7 +208,7 @@ export default function ListSeanceScreen({ navigation }) {
                 previewOpenDelay={3000}
                 onRowDidOpen={onRowDidOpen}
               />
-               <SwipeListView
+              <SwipeListView
                 data={searchValue}
                 renderItem={renderItem}
                 renderHiddenItem={renderHiddenItem}
